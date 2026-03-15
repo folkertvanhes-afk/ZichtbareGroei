@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Layers, Bot, Rocket, ArrowRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const steps = [
   {
@@ -35,29 +36,39 @@ const Roadmap: React.FC = () => {
   const [activeStep, setActiveStep] = useState(1);
 
   return (
-    <section className="py-20 bg-surface overflow-hidden">
+    <section className="py-20 bg-surface overflow-hidden" id="roadmap">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-16"
+        >
           <h2 className="text-4xl md:text-5xl font-serif text-deep-green mb-4">Jouw Reis naar <span className="text-primary italic">Vrijheid</span></h2>
           <p className="text-deep-green/60">Geen ingewikkelde IT-trajecten, maar een helder 3-stappenplan.</p>
-        </div>
+        </motion.div>
 
         <div className="max-w-5xl mx-auto">
           {/* Desktop Horizontal Line */}
           <div className="hidden md:flex justify-between items-center relative mb-12 px-12">
             <div className="absolute top-1/2 left-0 w-full h-1 bg-deep-green/10 -z-10"></div>
-            <div 
-                className="absolute top-1/2 left-0 h-1 bg-primary transition-all duration-700 -z-10"
-                style={{ width: `${((activeStep - 1) / 2) * 100}%` }}
-            ></div>
+            <motion.div 
+                className="absolute top-1/2 left-0 h-1 bg-primary -z-10"
+                initial={{ width: 0 }}
+                animate={{ width: `${((activeStep - 1) / 2) * 100}%` }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+            ></motion.div>
             
             {steps.map((step) => (
-              <button 
+              <motion.button 
                 key={step.id}
                 onClick={() => setActiveStep(step.id)}
-                className={`w-16 h-16 rounded-full flex items-center justify-center border-4 transition-all duration-300 relative group ${
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                className={`w-16 h-16 rounded-full flex items-center justify-center border-4 transition-colors duration-300 relative group ${
                   activeStep >= step.id 
-                    ? 'bg-deep-green border-primary text-primary scale-110' 
+                    ? 'bg-deep-green border-primary text-primary' 
                     : 'bg-white border-deep-green/10 text-deep-green/30 hover:border-primary/50'
                 }`}
               >
@@ -67,7 +78,7 @@ const Roadmap: React.FC = () => {
                 }`}>
                     {step.tag}
                 </div>
-              </button>
+              </motion.button>
             ))}
           </div>
 
@@ -75,54 +86,74 @@ const Roadmap: React.FC = () => {
           <div className="grid md:grid-cols-2 gap-12 items-center">
              <div className="md:hidden flex flex-col gap-4">
                  {steps.map((step) => (
-                    <button 
+                    <motion.button 
                         key={step.id}
                         onClick={() => setActiveStep(step.id)}
-                        className={`p-4 rounded-xl border text-left flex items-center gap-4 ${
+                        whileTap={{ scale: 0.95 }}
+                        className={`p-4 rounded-xl border text-left flex items-center gap-4 transition-colors ${
                             activeStep === step.id 
                             ? 'bg-deep-green text-light border-primary' 
                             : 'bg-white text-deep-green border-transparent'
                         }`}
                     >
-                        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${activeStep === step.id ? 'bg-primary text-deep-green' : 'bg-gray-100'}`}>
+                        <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${activeStep === step.id ? 'bg-primary text-deep-green' : 'bg-gray-100'}`}>
                             {step.id}
                         </div>
                         <span className="font-bold">{step.title}</span>
-                    </button>
+                    </motion.button>
                  ))}
              </div>
 
              {/* Detail Card */}
-             <div className="col-span-2 md:col-span-2">
-                 {steps.map((step) => (
-                     activeStep === step.id && (
-                         <div key={step.id} className="glass-panel p-8 md:p-12 rounded-[2.5rem] flex flex-col md:flex-row gap-8 items-center reveal-up">
-                             <div className="flex-1 space-y-4">
-                                 <div className="inline-block px-4 py-1 rounded-full bg-primary/20 text-deep-green text-xs font-bold uppercase tracking-widest mb-2">
-                                     Stap {step.id}: {step.tag}
-                                 </div>
-                                 <h3 className="text-3xl font-serif text-deep-green">{step.title}</h3>
-                                 <h4 className="text-xl text-primary font-medium">{step.subtitle}</h4>
-                                 <p className="text-deep-green/70 leading-relaxed text-lg">{step.description}</p>
-                             </div>
-                             <div className="flex-1 w-full flex justify-center">
-                                 <div className="w-full max-w-sm aspect-square bg-gradient-to-br from-deep-green to-black rounded-2xl flex items-center justify-center relative overflow-hidden shadow-2xl group">
-                                     <img src={step.image} alt={step.title} className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
-                                     <div className="absolute inset-0 bg-deep-green/40 mix-blend-multiply"></div>
-                                     <step.icon size={80} className="text-primary relative z-10 opacity-80" />
-                                     <div className="absolute bottom-6 right-6 z-10">
-                                         <button 
-                                            onClick={() => setActiveStep(step.id < steps.length ? step.id + 1 : 1)}
-                                            className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white p-4 rounded-full border border-white/20 transition-all"
-                                         >
-                                             <ArrowRight />
-                                         </button>
-                                     </div>
-                                 </div>
-                             </div>
-                         </div>
-                     )
-                 ))}
+             <div className="col-span-2 md:col-span-2 relative min-h-[400px]">
+                 <AnimatePresence mode="wait">
+                   {steps.map((step) => (
+                       activeStep === step.id && (
+                           <motion.div 
+                             key={step.id} 
+                             initial={{ opacity: 0, x: 20 }}
+                             animate={{ opacity: 1, x: 0 }}
+                             exit={{ opacity: 0, x: -20 }}
+                             transition={{ duration: 0.4 }}
+                             className="glass-panel p-8 md:p-12 rounded-[2.5rem] flex flex-col md:flex-row gap-8 items-center absolute inset-0"
+                           >
+                               <div className="flex-1 space-y-4">
+                                   <div className="inline-block px-4 py-1 rounded-full bg-primary/20 text-deep-green text-xs font-bold uppercase tracking-widest mb-2">
+                                       Stap {step.id}: {step.tag}
+                                   </div>
+                                   <h3 className="text-3xl font-serif text-deep-green">{step.title}</h3>
+                                   <h4 className="text-xl text-primary font-medium">{step.subtitle}</h4>
+                                   <p className="text-deep-green/70 leading-relaxed text-lg">{step.description}</p>
+                               </div>
+                               <div className="flex-1 w-full flex justify-center">
+                                   <div className="w-full max-w-sm aspect-square bg-gradient-to-br from-deep-green to-black rounded-2xl flex items-center justify-center relative overflow-hidden shadow-2xl group">
+                                       <motion.img 
+                                          initial={{ scale: 1.2 }}
+                                          animate={{ scale: 1 }}
+                                          transition={{ duration: 0.8 }}
+                                          src={step.image} 
+                                          alt={step.title} 
+                                          className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700" 
+                                          referrerPolicy="no-referrer" 
+                                       />
+                                       <div className="absolute inset-0 bg-deep-green/40 mix-blend-multiply"></div>
+                                       <step.icon size={80} className="text-primary relative z-10 opacity-80" />
+                                       <div className="absolute bottom-6 right-6 z-10">
+                                           <motion.button 
+                                              whileHover={{ scale: 1.1 }}
+                                              whileTap={{ scale: 0.9 }}
+                                              onClick={() => setActiveStep(step.id < steps.length ? step.id + 1 : 1)}
+                                              className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white p-4 rounded-full border border-white/20 transition-all"
+                                           >
+                                               <ArrowRight />
+                                           </motion.button>
+                                       </div>
+                                   </div>
+                               </div>
+                           </motion.div>
+                       )
+                   ))}
+                 </AnimatePresence>
              </div>
           </div>
         </div>

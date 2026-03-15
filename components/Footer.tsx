@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, Mail, Instagram, Linkedin } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const Footer: React.FC = () => {
   // Simple countdown logic
@@ -18,19 +19,38 @@ const Footer: React.FC = () => {
   }, []);
 
   return (
-    <footer className="bg-deep-green pt-24 pb-12 border-t border-white/5 relative overflow-hidden text-light">
+    <footer className="bg-deep-green pt-24 pb-12 border-t border-white/5 relative overflow-hidden text-light" id="contact">
       {/* Background accents */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
+      <motion.div 
+        animate={{ 
+          scale: [1, 1.2, 1],
+          opacity: [0.3, 0.5, 0.3]
+        }}
+        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-0 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-[100px] pointer-events-none"
+      />
       
       <div className="container mx-auto px-6 relative z-10">
         
         {/* Big Final CTA */}
         <div className="text-center mb-24 max-w-4xl mx-auto">
-          <h2 className="text-5xl md:text-7xl font-serif text-light mb-8">
+          <motion.h2 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="text-5xl md:text-7xl font-serif text-light mb-8"
+          >
             Klaar voor <span className="text-primary italic">Groei?</span>
-          </h2>
+          </motion.h2>
           
-          <div className="bg-white/5 inline-flex flex-col md:flex-row items-center gap-6 md:gap-8 p-6 rounded-2xl border border-primary/10 backdrop-blur-sm mb-10 shadow-2xl">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="bg-white/5 inline-flex flex-col md:flex-row items-center gap-6 md:gap-8 p-6 rounded-2xl border border-primary/10 backdrop-blur-sm mb-10 shadow-2xl"
+          >
             <div className="flex flex-col items-center md:items-start">
                  <p className="text-primary text-[10px] uppercase tracking-[0.2em] font-bold mb-2">Beperkte Instroom</p>
                  <p className="text-light/60 text-sm">Gratis Strategie Sessie eindigt in:</p>
@@ -38,29 +58,59 @@ const Footer: React.FC = () => {
             
             <div className="flex gap-4 text-light font-serif text-3xl md:text-4xl">
                <div className="flex flex-col items-center">
-                   <span className="leading-none">0{timeLeft.hours}</span>
+                   <motion.span 
+                     key={timeLeft.hours}
+                     initial={{ y: -10, opacity: 0 }}
+                     animate={{ y: 0, opacity: 1 }}
+                     className="leading-none"
+                   >
+                     0{timeLeft.hours}
+                   </motion.span>
                    <span className="text-[10px] text-light/30 font-sans font-bold tracking-widest mt-1">UUR</span>
                </div>
                <span className="opacity-30">:</span>
                <div className="flex flex-col items-center">
-                   <span className="leading-none">{timeLeft.minutes < 10 ? `0${timeLeft.minutes}` : timeLeft.minutes}</span>
+                   <motion.span 
+                     key={timeLeft.minutes}
+                     initial={{ y: -10, opacity: 0 }}
+                     animate={{ y: 0, opacity: 1 }}
+                     className="leading-none"
+                   >
+                     {timeLeft.minutes < 10 ? `0${timeLeft.minutes}` : timeLeft.minutes}
+                   </motion.span>
                    <span className="text-[10px] text-light/30 font-sans font-bold tracking-widest mt-1">MIN</span>
                </div>
                <span className="opacity-30">:</span>
                <div className="flex flex-col items-center">
-                   <span className="leading-none text-primary">{timeLeft.seconds < 10 ? `0${timeLeft.seconds}` : timeLeft.seconds}</span>
+                   <motion.span 
+                     key={timeLeft.seconds}
+                     initial={{ y: -10, opacity: 0 }}
+                     animate={{ y: 0, opacity: 1 }}
+                     className="leading-none text-primary"
+                   >
+                     {timeLeft.seconds < 10 ? `0${timeLeft.seconds}` : timeLeft.seconds}
+                   </motion.span>
                    <span className="text-[10px] text-primary/50 font-sans font-bold tracking-widest mt-1">SEC</span>
                </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div>
-             <button className="px-10 py-5 bg-primary text-deep-green text-lg font-bold rounded-xl hover:bg-[#d4b68f] transition-all shadow-[0_0_30px_rgba(199,161,116,0.2)] flex items-center gap-3 mx-auto group">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+             <motion.button 
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="px-10 py-5 bg-primary text-deep-green text-lg font-bold rounded-xl hover:bg-[#d4b68f] transition-colors shadow-[0_0_30px_rgba(199,161,116,0.2)] flex items-center gap-3 mx-auto group"
+              >
                 START MIJN STRATEGIE
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-              </button>
+              </motion.button>
               <p className="mt-4 text-xs text-light/30">Geen verplichtingen. Direct toegang tot de kalender.</p>
-          </div>
+          </motion.div>
         </div>
 
         {/* Footer Links & Branding */}
@@ -74,21 +124,24 @@ const Footer: React.FC = () => {
            </div>
            
            <div className="flex gap-8 text-light/40 text-xs font-bold uppercase tracking-widest">
+               <a href="#methode" className="hover:text-primary transition-colors">De Methode</a>
                <a href="#" className="hover:text-primary transition-colors">Privacy</a>
                <a href="#" className="hover:text-primary transition-colors">Algemene Voorwaarden</a>
-               <a href="#" className="hover:text-primary transition-colors">Contact</a>
+               <a href="#contact" className="hover:text-primary transition-colors">Contact</a>
            </div>
 
            <div className="flex gap-4">
-              <a href="#" className="w-10 h-10 rounded-full border border-white/5 flex items-center justify-center text-light/40 hover:text-primary hover:border-primary/50 transition-all bg-white/5">
-                <Instagram size={18} />
-              </a>
-              <a href="#" className="w-10 h-10 rounded-full border border-white/5 flex items-center justify-center text-light/40 hover:text-primary hover:border-primary/50 transition-all bg-white/5">
-                <Linkedin size={18} />
-              </a>
-               <a href="#" className="w-10 h-10 rounded-full border border-white/5 flex items-center justify-center text-light/40 hover:text-primary hover:border-primary/50 transition-all bg-white/5">
-                <Mail size={18} />
-              </a>
+              {[Instagram, Linkedin, Mail].map((Icon, i) => (
+                <motion.a 
+                  key={i}
+                  href="#" 
+                  whileHover={{ scale: 1.1, rotate: 5 }}
+                  whileTap={{ scale: 0.9 }}
+                  className="w-10 h-10 rounded-full border border-white/5 flex items-center justify-center text-light/40 hover:text-primary hover:border-primary/50 transition-colors bg-white/5"
+                >
+                  <Icon size={18} />
+                </motion.a>
+              ))}
            </div>
         </div>
       </div>

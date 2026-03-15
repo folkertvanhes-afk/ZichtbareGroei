@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Check, ArrowRight, ShieldCheck, Sparkles } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const PricingCalculator: React.FC = () => {
+  const [isYearly, setIsYearly] = useState(false);
+
   const plans = [
     { 
       name: 'Basis Setup', 
@@ -36,31 +39,82 @@ const PricingCalculator: React.FC = () => {
     },
   ];
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+  };
+
   return (
     <section className="py-32 relative bg-background" id="prijzen">
       <div className="container mx-auto px-6">
-        <div className="text-center mb-20">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-center mb-20"
+        >
            <h2 className="text-5xl md:text-7xl font-serif text-deep-green mb-6">Investeer in <span className="text-primary italic">Resultaat.</span></h2>
-           <p className="text-xl text-deep-green/60 max-w-2xl mx-auto font-light">
+           <p className="text-xl text-deep-green/60 max-w-2xl mx-auto font-light mb-12">
              Kies de Done-For-You setup die past bij jouw ambitie. Van overzicht naar ultieme vrijheid.
            </p>
-        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto items-stretch">
-            {plans.map(plan => (
-                <div 
+           {/* Billing Toggle */}
+           <div className="flex items-center justify-center gap-4 mb-12">
+             <span className={`text-sm font-bold transition-colors ${!isYearly ? 'text-deep-green' : 'text-deep-green/40'}`}>Maandelijks</span>
+             <button 
+                onClick={() => setIsYearly(!isYearly)}
+                className="w-16 h-8 rounded-full bg-deep-green/10 relative flex items-center p-1 cursor-pointer"
+             >
+                <motion.div 
+                  className="w-6 h-6 bg-primary rounded-full shadow-md"
+                  animate={{ x: isYearly ? 32 : 0 }}
+                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                />
+             </button>
+             <span className={`text-sm font-bold transition-colors flex items-center gap-2 ${isYearly ? 'text-deep-green' : 'text-deep-green/40'}`}>
+                Jaarlijks <span className="bg-primary/20 text-primary text-[10px] px-2 py-0.5 rounded-full">-20%</span>
+             </span>
+           </div>
+        </motion.div>
+
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto items-stretch"
+        >
+            {plans.map((plan, index) => (
+                <motion.div 
+                    variants={itemVariants}
                     key={plan.name}
+                    whileHover={{ y: -10, transition: { duration: 0.2 } }}
                     className={`rounded-[2.5rem] p-8 flex flex-col transition-all duration-300 relative group
                     ${plan.highlight 
-                        ? 'bg-deep-green text-light scale-105 shadow-2xl z-10' 
-                        : 'bg-white text-deep-green border border-deep-green/5 hover:border-primary/30 hover:shadow-lg'
+                        ? 'bg-deep-green text-light shadow-2xl z-10 lg:scale-105' 
+                        : 'bg-white text-deep-green border border-deep-green/5 hover:border-primary/30 hover:shadow-xl'
                     }
                     `}
                 >
                     {plan.highlight && (
-                        <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-deep-green px-6 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-lg whitespace-nowrap">
+                        <motion.div 
+                          animate={{ y: [0, -5, 0] }}
+                          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                          className="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-deep-green px-6 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-lg whitespace-nowrap"
+                        >
                             Meest Gekozen
-                        </div>
+                        </motion.div>
                     )}
                     
                     {plan.badge && !plan.highlight && (
@@ -83,8 +137,10 @@ const PricingCalculator: React.FC = () => {
                         <div className="mb-6 pb-6 border-b border-dashed border-current opacity-50">
                           <div className={`text-xs uppercase tracking-widest font-bold mb-1 ${plan.highlight ? 'text-light/50' : 'text-deep-green/50'}`}>Daarna</div>
                           <div className="flex items-baseline gap-1">
-                              <span className="text-xl font-serif">€{plan.monthlyPrice}</span>
-                              <span className="text-sm">/mnd voor de software</span>
+                              <span className="text-xl font-serif">
+                                €{isYearly ? Math.round(plan.monthlyPrice * 0.8) : plan.monthlyPrice}
+                              </span>
+                              <span className="text-sm">/mnd {isYearly ? '(jaarlijks gefactureerd)' : 'voor de software'}</span>
                           </div>
                         </div>
 
@@ -123,17 +179,22 @@ const PricingCalculator: React.FC = () => {
                         ))}
                     </ul>
 
-                    <button className={`w-full py-5 rounded-xl font-bold text-sm uppercase tracking-widest transition-all flex items-center justify-center gap-2 ${
-                    plan.highlight 
-                        ? 'bg-primary text-deep-green hover:bg-[#d4b68f]' 
-                        : 'bg-deep-green/5 text-deep-green hover:bg-deep-green hover:text-light'
-                    }`}>
-                    Start Nu
-                    <ArrowRight size={16} />
-                    </button>
-                </div>
+                    <motion.a 
+                      href="#contact"
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      className={`w-full py-5 rounded-xl font-bold text-sm uppercase tracking-widest transition-colors flex items-center justify-center gap-2 ${
+                      plan.highlight 
+                          ? 'bg-primary text-deep-green hover:bg-[#d4b68f]' 
+                          : 'bg-deep-green/5 text-deep-green hover:bg-deep-green hover:text-light'
+                      }`}
+                    >
+                      Start Nu
+                      <ArrowRight size={16} />
+                    </motion.a>
+                </motion.div>
             ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
