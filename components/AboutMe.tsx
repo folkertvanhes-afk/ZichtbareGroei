@@ -1,53 +1,101 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { CheckCircle2, HeartHandshake, Target } from 'lucide-react';
+import { CheckCircle2, Target, Zap, Shield, LineChart, Sparkles } from 'lucide-react';
 
-const AboutMe: React.FC = () => {
+interface AboutMeProps {
+  onOpenModal?: () => void;
+}
+
+const AboutMe: React.FC<AboutMeProps> = ({ onOpenModal }) => {
   return (
-    <section id="over-mij" className="py-24 bg-white relative overflow-hidden">
-      {/* Subtle background decoration */}
-      <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
-        <div className="absolute top-[-10%] right-[-5%] w-[400px] h-[400px] bg-primary/5 rounded-full blur-[80px]"></div>
-        <div className="absolute bottom-[-10%] left-[-5%] w-[400px] h-[400px] bg-deep-green/5 rounded-full blur-[80px]"></div>
+    <section id="over-mij" className="relative bg-background overflow-hidden pb-32">
+      {/* Editorial Hero Section */}
+      <div className="relative pt-20 pb-32 bg-deep-green text-light overflow-hidden">
+        <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]"></div>
+        <div className="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] bg-primary/20 rounded-full blur-[120px]"></div>
+        
+        <div className="container mx-auto px-6 max-w-6xl relative z-10">
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="max-w-4xl"
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur-md mb-8">
+              <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+              <span className="text-xs font-bold tracking-widest uppercase text-primary">Aangenaam</span>
+            </div>
+            <h1 className="text-5xl md:text-7xl font-serif mb-6 leading-[1.1]">
+              Ik bouw de <span className="text-primary italic">systemen</span> waar jij van droomt.
+            </h1>
+            <p className="text-xl md:text-2xl text-light/70 font-light max-w-2xl leading-relaxed">
+              Zodat jij je weer kunt focussen op je passie, in plaats van te vechten met techniek.
+            </p>
+          </motion.div>
+        </div>
       </div>
 
-      <div className="container mx-auto px-6 max-w-6xl relative z-10">
-        <div className="grid md:grid-cols-2 gap-16 lg:gap-24 items-center">
+      {/* The Story & Image Section */}
+      <div className="container mx-auto px-6 max-w-6xl relative z-20 -mt-20">
+        <div className="grid lg:grid-cols-12 gap-12 items-start">
           
           {/* Image Column */}
           <motion.div 
-            initial={{ opacity: 0, x: -40 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="relative"
+            className="lg:col-span-5 lg:sticky lg:top-32 h-max"
           >
-            <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl aspect-[4/5] md:aspect-auto md:h-[600px]">
-              <div className="absolute inset-0 bg-deep-green/10 mix-blend-multiply z-10"></div>
-              <img 
-                src="https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=1061&auto=format&fit=crop" 
-                alt="Portret" 
-                className="w-full h-full object-cover"
-                referrerPolicy="no-referrer"
-              />
+            <div className="relative">
+              <div className="relative rounded-[2rem] overflow-hidden shadow-2xl aspect-[4/5] border-4 border-white bg-white">
+                <div className="absolute inset-0 bg-deep-green/10 mix-blend-multiply z-10"></div>
+                <img 
+                  src="https://assets.cdn.filesafe.space/Xn0ouMgD2stq6OuI1a4H/media/696bf4d4b34b64020e600c8b.png" 
+                  alt="Folkert van Hes" 
+                  className="w-full h-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+
+              {/* Floating Stats */}
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4, duration: 0.6 }}
+                className="absolute -bottom-6 -right-6 bg-white p-6 rounded-2xl shadow-xl border border-deep-green/5 max-w-[220px] z-20"
+              >
+                <div className="flex items-center gap-4 mb-3">
+                  <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+                    <Target size={24} />
+                  </div>
+                  <div>
+                    <div className="text-3xl font-serif font-bold text-deep-green">3+</div>
+                    <div className="text-[10px] uppercase tracking-wider font-bold text-deep-green/50">Jaar Ervaring</div>
+                  </div>
+                </div>
+                <p className="text-xs text-deep-green/70 font-medium leading-relaxed">
+                  Gespecialiseerd in AI & Marketing Automatisering.
+                </p>
+              </motion.div>
             </div>
 
-            {/* Floating Trust Badge */}
-            <motion.div 
+            {/* Mission/Promise Fill */}
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-              className="absolute -bottom-8 -right-8 md:-right-12 glass-panel p-6 rounded-2xl shadow-xl backdrop-blur-xl border border-white/40 max-w-[200px]"
+              transition={{ delay: 0.6, duration: 0.6 }}
+              className="mt-16 bg-deep-green p-8 rounded-[2rem] shadow-xl relative overflow-hidden group hidden lg:block text-white"
             >
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary">
-                  <HeartHandshake size={20} />
-                </div>
-                <div className="text-3xl font-serif font-bold text-deep-green">100+</div>
-              </div>
-              <p className="text-xs text-deep-green/70 font-medium leading-relaxed">
-                Coaches & therapeuten geholpen naar meer rust.
+              <div className="absolute top-0 right-0 w-32 h-32 bg-primary/20 rounded-full blur-3xl -mr-10 -mt-10 transition-transform group-hover:scale-150"></div>
+              <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full blur-2xl -ml-10 -mb-10"></div>
+              <h4 className="text-sm font-bold uppercase tracking-widest text-primary mb-4">
+                Mijn Belofte
+              </h4>
+              <p className="text-white/90 font-light leading-relaxed italic text-lg">
+                "Ik neem de technische chaos uit handen, zodat jij je volledige energie kunt steken in het transformeren van de levens van jouw cliënten."
               </p>
             </motion.div>
           </motion.div>
@@ -58,57 +106,111 @@ const AboutMe: React.FC = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="flex flex-col justify-center"
+            className="lg:col-span-7 bg-white rounded-[2rem] p-8 md:p-12 shadow-xl border border-deep-green/5 mt-12 lg:mt-32"
           >
-            <div className="inline-block px-4 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-widest mb-6 w-max">
-              Over Mij
-            </div>
-            <h2 className="text-4xl md:text-5xl font-serif text-deep-green mb-6 leading-tight">
-              Techniek hoort je te <span className="text-primary italic">dienen</span>, niet te frustreren.
+            <h2 className="text-3xl md:text-4xl font-serif text-deep-green mb-8">
+              Hi, ik ben <span className="text-primary italic">Folkert van Hes</span>
             </h2>
             
-            <div className="space-y-6 text-deep-green/70 text-lg font-light leading-relaxed mb-10">
+            <div className="space-y-6 text-deep-green/80 text-lg font-light leading-relaxed mb-10">
               <p>
-                Hoi, ik ben de oprichter van Zichtbare Groei. Ik zag de afgelopen jaren een pijnlijk patroon: briljante coaches en therapeuten die vastlopen in hun eigen succes.
+                Drie jaar geleden begon ik als onafhankelijk online marketeer. Wat ik zag, frustreerde me mateloos: gepassioneerde ondernemers die <strong>vastliepen in een web van dure, losse tools</strong>. Ze waren meer tijd kwijt aan administratie en techniek dan aan hun eigen klanten.
+              </p>
+              <p className="text-xl font-serif text-deep-green border-l-4 border-primary pl-6 py-2 my-8 italic">
+                "Ik geloof dat techniek je vrijheid moet geven, geen hoofdpijn."
               </p>
               <p>
-                Je startte je praktijk om mensen te helpen, maar eindigt je dagen met het handmatig overtypen van afspraken, het zoeken naar notities en het nabellen van leads. De techniek die je zou moeten helpen, voelt als een blok aan je been.
-              </p>
-              <p>
-                <strong>Dat moest anders.</strong> Ik besloot me volledig te richten op het bouwen van naadloze, geautomatiseerde systemen specifiek voor deze branche. Geen losse tools meer die niet met elkaar praten, maar één helder ecosysteem.
+                Mijn passie voor AI, marketing en zelfontwikkeling bracht me bij de oplossing. Ik bouw nu <strong>één centraal systeem</strong> dat alles overneemt wat jou afleidt. Van therapeuten tot business coaches: ik help je om weer te doen waar je goed in bent.
               </p>
             </div>
 
-            <div className="space-y-4 mb-10">
+            <div className="grid sm:grid-cols-2 gap-4 mb-10">
               {[
-                "Persoonlijke aanpak, geen nummertje",
-                "Volledig 'Done-For-You' (ik bouw het voor je)",
-                "Focus op jouw rust en schaalbaarheid"
+                "Geen technische kennis nodig",
+                "100% Done-For-You ingericht",
+                "Bewezen AI-strategieën",
+                "Persoonlijke begeleiding"
               ].map((item, i) => (
-                <motion.div 
-                  key={i}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.2 + (i * 0.1) }}
-                  className="flex items-center gap-3"
-                >
+                <div key={i} className="flex items-center gap-3 bg-surface p-4 rounded-xl border border-deep-green/5">
                   <CheckCircle2 size={20} className="text-primary shrink-0" />
-                  <span className="text-deep-green font-medium">{item}</span>
-                </motion.div>
+                  <span className="text-deep-green text-sm font-bold">{item}</span>
+                </div>
               ))}
             </div>
 
-            <motion.a 
-              href="#contact"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="w-max px-8 py-4 bg-deep-green text-light font-bold rounded-xl hover:bg-deep-green/90 transition-colors shadow-lg flex items-center gap-3"
+            <motion.button 
+              onClick={onOpenModal}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="w-full sm:w-auto px-8 py-4 bg-deep-green text-light font-bold uppercase tracking-widest text-sm rounded-xl hover:bg-primary hover:text-deep-green transition-colors shadow-lg flex items-center justify-center gap-3"
             >
-              Laten we kennismaken
-            </motion.a>
+              Plan een vrijblijvende kennismaking
+            </motion.button>
           </motion.div>
 
+        </div>
+      </div>
+
+      {/* Core Values with Images */}
+      <div className="container mx-auto px-6 max-w-6xl mt-32">
+        <div className="text-center mb-16">
+          <h3 className="text-3xl font-serif text-deep-green mb-4">Waarom samenwerken?</h3>
+          <p className="text-deep-green/60 max-w-2xl mx-auto">De pijlers waarop ik elke samenwerking bouw.</p>
+        </div>
+        
+        <div className="grid md:grid-cols-3 gap-8">
+          {[
+            { 
+              icon: Shield,
+              image: "https://images.unsplash.com/photo-1614850715649-1d0106293bd1?q=80&w=2070&auto=format&fit=crop", 
+              title: "Radicale Transparantie", 
+              desc: "Geen verborgen kosten of vage beloftes. Je weet precies wat je krijgt en wat het oplevert." 
+            },
+            { 
+              icon: Sparkles,
+              image: "https://images.unsplash.com/photo-1634152962476-4b8a00e1915c?q=80&w=2121&auto=format&fit=crop", 
+              title: "Innovatie Voorop", 
+              desc: "Ik gebruik de nieuwste AI-tools zodat jij je concurrentie altijd een stap voor blijft." 
+            },
+            { 
+              icon: LineChart,
+              image: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2000&auto=format&fit=crop", 
+              title: "Meetbare Groei", 
+              desc: "We bouwen geen systemen voor de leuk. Alles is gericht op meer rust, meer leads en meer omzet." 
+            }
+          ].map((value, i) => (
+            <motion.div 
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.2 }}
+              className="relative h-[420px] rounded-[2rem] overflow-hidden group cursor-pointer shadow-lg hover:shadow-2xl transition-shadow"
+            >
+              {/* Background Image */}
+              <img 
+                src={value.image} 
+                alt={value.title} 
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                referrerPolicy="no-referrer"
+              />
+              {/* Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-deep-green via-deep-green/80 to-deep-green/20 opacity-90 group-hover:opacity-80 transition-opacity duration-500"></div>
+
+              {/* Content */}
+              <div className="absolute inset-0 p-8 flex flex-col justify-end">
+                <div className="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center mb-6 text-primary group-hover:scale-110 group-hover:bg-primary group-hover:text-deep-green transition-all duration-500 shadow-xl">
+                  <value.icon size={28} strokeWidth={1.5} />
+                </div>
+                <h4 className="text-2xl font-serif text-white mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">{value.title}</h4>
+                <div className="overflow-hidden">
+                  <p className="text-white/80 text-sm leading-relaxed transform translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out">
+                    {value.desc}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

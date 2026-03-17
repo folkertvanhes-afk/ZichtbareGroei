@@ -32,8 +32,8 @@ const PricingCalculator: React.FC = () => {
       setupPrice: 2997,
       monthlyPrice: 197,
       tag: 'SCHAAL',
-      description: 'Volledige operationele vrijheid inclusief een gloednieuwe online presentatie.',
-      features: ['Alles uit de Professional Setup', 'Custom High-Converting Website', 'Geavanceerde Maatwerk Workflows', 'Priority VIP Support'],
+      description: 'Volledige operationele vrijheid inclusief geavanceerde maatwerk workflows.',
+      features: ['Alles uit de Professional Setup', 'Geavanceerde Maatwerk Workflows', 'Priority VIP Support', 'Kwartaal Strategie Sessies'],
       aiComponent: 'De Volledige "AI Employee"',
       badge: null
     },
@@ -194,6 +194,35 @@ const PricingCalculator: React.FC = () => {
                     </motion.a>
                 </motion.div>
             ))}
+        </motion.div>
+
+        {/* Website Add-on */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="max-w-4xl mx-auto mt-12 bg-white rounded-3xl p-6 md:p-8 border border-deep-green/10 shadow-lg flex flex-col md:flex-row items-center justify-between gap-6"
+        >
+          <div className="flex items-center gap-6">
+            <div className="w-16 h-16 rounded-2xl bg-primary/20 flex items-center justify-center text-primary shrink-0">
+              <Sparkles size={32} />
+            </div>
+            <div>
+              <div className="inline-block px-3 py-1 bg-deep-green/5 text-deep-green text-[10px] font-bold uppercase tracking-widest rounded-full mb-2">
+                Optionele Add-on
+              </div>
+              <h3 className="text-2xl font-serif text-deep-green mb-2">Nieuwe Website Nodig?</h3>
+              <p className="text-deep-green/70 text-sm max-w-lg">
+                Voeg een gloednieuwe, conversiegerichte website toe aan je setup. Geoptimaliseerd voor mobiel, razendsnel en direct gekoppeld aan je nieuwe systeem.
+              </p>
+            </div>
+          </div>
+          <div className="text-center md:text-right shrink-0">
+            <div className="text-sm text-deep-green/50 line-through mb-1">Normaal €1.500</div>
+            <div className="text-3xl font-serif text-primary mb-2">+ €800</div>
+            <div className="text-xs text-deep-green/50 uppercase tracking-widest font-bold">Eenmalig</div>
+          </div>
         </motion.div>
       </div>
     </section>

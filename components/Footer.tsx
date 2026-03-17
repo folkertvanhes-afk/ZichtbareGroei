@@ -2,7 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { ArrowRight, Mail, Instagram, Linkedin } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-const Footer: React.FC = () => {
+interface FooterProps {
+  onOpenModal: () => void;
+}
+
+const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
   // Simple countdown logic
   const [timeLeft, setTimeLeft] = useState({ hours: 4, minutes: 59, seconds: 0 });
 
@@ -101,12 +105,13 @@ const Footer: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-             <motion.button 
+              <motion.button 
+                onClick={onOpenModal}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 className="px-10 py-5 bg-primary text-deep-green text-lg font-bold rounded-xl hover:bg-[#d4b68f] transition-colors shadow-[0_0_30px_rgba(199,161,116,0.2)] flex items-center gap-3 mx-auto group"
               >
-                START MIJN STRATEGIE
+                PLAN ADVIESGESPREK
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
               </motion.button>
               <p className="mt-4 text-xs text-light/30">Geen verplichtingen. Direct toegang tot de kalender.</p>
@@ -114,20 +119,24 @@ const Footer: React.FC = () => {
         </div>
 
         {/* Footer Links & Branding */}
-        <div className="border-t border-white/5 pt-12 flex flex-col md:flex-row justify-between items-center gap-8">
+        <div className="border-t border-white/5 pt-12 flex flex-col lg:flex-row justify-between items-center gap-8">
            <div className="flex items-center gap-3">
-               <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-deep-green text-xs font-bold">ZG</div>
-               <div className="text-light text-sm font-serif">
-                 Zichtbare<span className="text-primary italic">Groei</span>
-                 <span className="text-light/30 font-sans ml-2 text-xs">© {new Date().getFullYear()}</span>
-               </div>
+               <a href="/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 group">
+                   <div className="w-10 h-10 rounded-full bg-[#C7A174] flex items-center justify-center text-[#213430] font-bold text-lg tracking-tight group-hover:scale-110 transition-transform">
+                     ZG
+                   </div>
+                   <span className="font-serif text-2xl text-white tracking-wide hidden sm:block group-hover:text-[#C7A174] transition-colors">Zichtbare<span className="italic text-[#C7A174]">Groei</span></span>
+               </a>
+               <div className="text-light/30 font-sans ml-2 text-xs">© {new Date().getFullYear()}</div>
            </div>
            
-           <div className="flex gap-8 text-light/40 text-xs font-bold uppercase tracking-widest">
-               <a href="#methode" className="hover:text-primary transition-colors">De Methode</a>
+           <div className="flex flex-wrap justify-center gap-6 lg:gap-8 text-light/40 text-xs font-bold uppercase tracking-widest">
+               <a href="/#methode" className="hover:text-primary transition-colors">De Methode</a>
+               <a href="/over-mij" className="hover:text-primary transition-colors">Over mij</a>
                <a href="#" className="hover:text-primary transition-colors">Privacy</a>
                <a href="#" className="hover:text-primary transition-colors">Algemene Voorwaarden</a>
                <a href="#contact" className="hover:text-primary transition-colors">Contact</a>
+               <a href="/flow" className="hover:text-primary transition-colors text-primary/30">Flow Event</a>
            </div>
 
            <div className="flex gap-4">

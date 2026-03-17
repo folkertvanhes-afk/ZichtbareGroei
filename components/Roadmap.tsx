@@ -82,79 +82,56 @@ const Roadmap: React.FC = () => {
             ))}
           </div>
 
-          {/* Mobile Vertical & Active Card Display */}
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-             <div className="md:hidden flex flex-col gap-4">
-                 {steps.map((step) => (
-                    <motion.button 
-                        key={step.id}
-                        onClick={() => setActiveStep(step.id)}
-                        whileTap={{ scale: 0.95 }}
-                        className={`p-4 rounded-xl border text-left flex items-center gap-4 transition-colors ${
-                            activeStep === step.id 
-                            ? 'bg-deep-green text-light border-primary' 
-                            : 'bg-white text-deep-green border-transparent'
-                        }`}
-                    >
-                        <div className={`w-10 h-10 rounded-full flex items-center justify-center transition-colors ${activeStep === step.id ? 'bg-primary text-deep-green' : 'bg-gray-100'}`}>
-                            {step.id}
-                        </div>
-                        <span className="font-bold">{step.title}</span>
-                    </motion.button>
-                 ))}
-             </div>
-
-             {/* Detail Card */}
-             <div className="col-span-2 md:col-span-2 relative min-h-[400px]">
-                 <AnimatePresence mode="wait">
-                   {steps.map((step) => (
-                       activeStep === step.id && (
-                           <motion.div 
-                             key={step.id} 
-                             initial={{ opacity: 0, x: 20 }}
-                             animate={{ opacity: 1, x: 0 }}
-                             exit={{ opacity: 0, x: -20 }}
-                             transition={{ duration: 0.4 }}
-                             className="glass-panel p-8 md:p-12 rounded-[2.5rem] flex flex-col md:flex-row gap-8 items-center absolute inset-0"
-                           >
-                               <div className="flex-1 space-y-4">
-                                   <div className="inline-block px-4 py-1 rounded-full bg-primary/20 text-deep-green text-xs font-bold uppercase tracking-widest mb-2">
-                                       Stap {step.id}: {step.tag}
-                                   </div>
-                                   <h3 className="text-3xl font-serif text-deep-green">{step.title}</h3>
-                                   <h4 className="text-xl text-primary font-medium">{step.subtitle}</h4>
-                                   <p className="text-deep-green/70 leading-relaxed text-lg">{step.description}</p>
-                               </div>
-                               <div className="flex-1 w-full flex justify-center">
-                                   <div className="w-full max-w-sm aspect-square bg-gradient-to-br from-deep-green to-black rounded-2xl flex items-center justify-center relative overflow-hidden shadow-2xl group">
-                                       <motion.img 
-                                          initial={{ scale: 1.2 }}
-                                          animate={{ scale: 1 }}
-                                          transition={{ duration: 0.8 }}
-                                          src={step.image} 
-                                          alt={step.title} 
-                                          className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700" 
-                                          referrerPolicy="no-referrer" 
-                                       />
-                                       <div className="absolute inset-0 bg-deep-green/40 mix-blend-multiply"></div>
-                                       <step.icon size={80} className="text-primary relative z-10 opacity-80" />
-                                       <div className="absolute bottom-6 right-6 z-10">
-                                           <motion.button 
-                                              whileHover={{ scale: 1.1 }}
-                                              whileTap={{ scale: 0.9 }}
-                                              onClick={() => setActiveStep(step.id < steps.length ? step.id + 1 : 1)}
-                                              className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white p-4 rounded-full border border-white/20 transition-all"
-                                           >
-                                               <ArrowRight />
-                                           </motion.button>
-                                       </div>
-                                   </div>
-                               </div>
-                           </motion.div>
-                       )
-                   ))}
-                 </AnimatePresence>
-             </div>
+          {/* Active Card Display */}
+          <div className="relative min-h-[750px] md:min-h-[450px]">
+              <AnimatePresence mode="wait">
+                {steps.map((step) => (
+                    activeStep === step.id && (
+                        <motion.div 
+                          key={step.id} 
+                          initial={{ opacity: 0, x: 20 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          exit={{ opacity: 0, x: -20 }}
+                          transition={{ duration: 0.4 }}
+                          className="glass-panel p-8 md:p-12 rounded-[2.5rem] flex flex-col md:flex-row gap-8 items-center absolute inset-0 w-full h-full"
+                        >
+                            <div className="flex-1 space-y-4 w-full">
+                                <div className="inline-block px-4 py-1 rounded-full bg-primary/20 text-deep-green text-xs font-bold uppercase tracking-widest mb-2">
+                                    Stap {step.id}: {step.tag}
+                                </div>
+                                <h3 className="text-3xl font-serif text-deep-green">{step.title}</h3>
+                                <h4 className="text-xl text-primary font-medium">{step.subtitle}</h4>
+                                <p className="text-deep-green/70 leading-relaxed text-lg">{step.description}</p>
+                            </div>
+                            <div className="flex-1 w-full flex justify-center h-full min-h-[250px]">
+                                <div className="w-full max-w-sm aspect-square md:aspect-auto md:h-full bg-gradient-to-br from-deep-green to-black rounded-2xl flex items-center justify-center relative overflow-hidden shadow-2xl group">
+                                    <motion.img 
+                                      initial={{ scale: 1.2 }}
+                                      animate={{ scale: 1 }}
+                                      transition={{ duration: 0.8 }}
+                                      src={step.image} 
+                                      alt={step.title} 
+                                      className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-700" 
+                                      referrerPolicy="no-referrer" 
+                                    />
+                                    <div className="absolute inset-0 bg-deep-green/40 mix-blend-multiply"></div>
+                                    <step.icon size={80} className="text-primary relative z-10 opacity-80" />
+                                    <div className="absolute bottom-6 right-6 z-10">
+                                        <motion.button 
+                                          whileHover={{ scale: 1.1 }}
+                                          whileTap={{ scale: 0.9 }}
+                                          onClick={() => setActiveStep(step.id < steps.length ? step.id + 1 : 1)}
+                                          className="bg-white/10 hover:bg-white/20 backdrop-blur-md text-white p-4 rounded-full border border-white/20 transition-all flex items-center justify-center"
+                                        >
+                                            <ArrowRight />
+                                        </motion.button>
+                                    </div>
+                                </div>
+                            </div>
+                        </motion.div>
+                    )
+                ))}
+              </AnimatePresence>
           </div>
         </div>
       </div>

@@ -1,15 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Zap, ShieldCheck, ArrowRight, PhoneCall, Calendar, ClipboardList, Users, CheckCircle2, Globe, Share2 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import Modal from '../components/Modal';
+import ClaimSetupForm from '../components/ClaimSetupForm';
+import Footer from '../components/Footer';
 
 const FlowEvent: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <div className="min-h-screen bg-background text-deep-green font-sans selection:bg-primary selection:text-white">
       {/* Navigation */}
       <div className="w-full flex justify-center px-4 pt-6">
-        <nav className="bg-deep-green/95 backdrop-blur-xl border border-white/10 rounded-full px-8 py-4 shadow-2xl flex items-center gap-3 max-w-xl w-full justify-center">
-            <div className="w-8 h-8 bg-primary rounded-full flex items-center justify-center text-deep-green text-xs font-bold font-sans">ZG</div>
-            <span className="text-lg font-serif text-light tracking-tight">Zichtbare<span className="text-primary italic">Groei</span></span>
+        <nav className="bg-deep-green/95 backdrop-blur-xl border border-white/10 rounded-full px-8 py-4 shadow-2xl flex items-center justify-center max-w-4xl w-full transition-all hover:scale-[1.01]">
+            <a href="/" className="flex items-center gap-3 group">
+                <div className="w-10 h-10 rounded-full bg-[#C7A174] flex items-center justify-center text-[#213430] font-bold text-lg tracking-tight group-hover:scale-110 transition-transform">
+                  ZG
+                </div>
+                <span className="font-serif text-2xl text-white tracking-wide hidden sm:block group-hover:text-[#C7A174] transition-colors">Zichtbare<span className="italic text-[#C7A174]">Groei</span></span>
+            </a>
         </nav>
       </div>
 
@@ -282,7 +291,7 @@ const FlowEvent: React.FC = () => {
                 </ul>
 
                 <div className="text-center bg-deep-green/50 rounded-xl p-8 border border-primary/30">
-                  <p className="text-light/80 uppercase tracking-widest text-sm font-bold mb-2">Jouw Flow Event Investering</p>
+                  <p className="text-light/80 uppercase tracking-widest text-sm font-bold mb-2">Jouw Investering</p>
                   <div className="flex items-end justify-center gap-2 mb-2">
                     <span className="text-6xl font-serif font-bold text-primary">€297</span>
                   </div>
@@ -294,7 +303,10 @@ const FlowEvent: React.FC = () => {
               </div>
 
               <div className="text-center">
-                <button className="group relative inline-flex items-center justify-center px-8 py-5 text-lg font-bold text-deep-green bg-primary rounded-full overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(199,161,116,0.4)] w-full sm:w-auto mb-4">
+                <button 
+                  onClick={() => setIsModalOpen(true)}
+                  className="group relative inline-flex items-center justify-center px-8 py-5 text-lg font-bold text-deep-green bg-primary rounded-full overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(199,161,116,0.4)] w-full sm:w-auto mb-4"
+                >
                   <span className="relative flex items-center gap-2">
                     Claim Deze Setup (Nog 3 Plekken) <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
                   </span>
@@ -344,9 +356,11 @@ const FlowEvent: React.FC = () => {
       </main>
       
       {/* Footer */}
-      <footer className="py-8 text-center text-deep-green/50 text-sm border-t border-deep-green/10">
-        <p>&copy; 2026 Zichtbare Groei. Alle rechten voorbehouden.</p>
-      </footer>
+      <Footer onOpenModal={() => setIsModalOpen(true)} />
+
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <ClaimSetupForm />
+      </Modal>
     </div>
   );
 };

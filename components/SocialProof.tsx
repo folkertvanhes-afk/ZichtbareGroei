@@ -86,19 +86,33 @@ const SocialProof: React.FC = () => {
             </div>
         </div>
         
-        {/* Infinite Logo Scroll */}
-        <div className="relative overflow-hidden w-full py-8 border-t border-deep-green/5 bg-background">
-            <motion.div 
-              animate={{ x: [0, -1035] }} // Approximate width of one set of logos
-              transition={{ repeat: Infinity, ease: "linear", duration: 20 }}
-              className="flex gap-20 items-center w-max px-6 opacity-30 grayscale hover:grayscale-0 hover:opacity-60 transition-all duration-500"
-            >
-                {[...logos, ...logos, ...logos, ...logos].map((logo, index) => (
-                    <div key={index} className="text-xl font-serif font-bold text-deep-green tracking-tight cursor-default whitespace-nowrap">
-                        {logo}
-                    </div>
-                ))}
-            </motion.div>
+        {/* Niches Section */}
+        <div className="relative overflow-hidden w-full py-16 border-t border-deep-green/5 bg-background flex flex-col items-center">
+            <div className="container mx-auto px-6 text-center mb-8">
+                <h3 className="text-2xl font-serif text-deep-green">Speciaal gebouwd voor:</h3>
+            </div>
+            
+            <div className="flex overflow-hidden relative w-full max-w-[100vw]">
+                <motion.div 
+                  animate={{ x: ["0%", "-50%"] }}
+                  transition={{ repeat: Infinity, ease: "linear", duration: 40 }}
+                  className="flex gap-6 items-center w-max px-3"
+                >
+                    {[...Array(2)].map((_, arrayIndex) => (
+                        <div key={arrayIndex} className="flex gap-6 items-center">
+                            {["Business Coaches", "Holistisch Therapeuten", "Personal Trainers", "Voedingsdeskundigen", "Relatietherapeuten", "Loopbaancoaches", "Mindset Trainers", "Klinisch Psychologen"].map((niche, index) => (
+                                <div 
+                                    key={`${arrayIndex}-${index}`}
+                                    className="px-6 py-3 bg-white border border-deep-green/10 rounded-full text-deep-green font-medium shadow-sm whitespace-nowrap"
+                                >
+                                    {niche}
+                                </div>
+                            ))}
+                        </div>
+                    ))}
+                </motion.div>
+            </div>
+            
             <div className="absolute top-0 left-0 h-full w-32 bg-gradient-to-r from-background to-transparent pointer-events-none"></div>
             <div className="absolute top-0 right-0 h-full w-32 bg-gradient-to-l from-background to-transparent pointer-events-none"></div>
         </div>

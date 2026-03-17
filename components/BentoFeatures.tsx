@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Calendar, Filter, PhoneMissed, CheckCircle2, Inbox, Sparkles, Send, User, Clock, ArrowRight } from 'lucide-react';
+import { FaWhatsapp, FaInstagram, FaFacebookMessenger } from 'react-icons/fa';
 
 const InboxFeature = () => {
   const [activeChat, setActiveChat] = useState(0);
   const chats = [
-    { id: 0, platform: 'WA', name: 'Sarah M.', msg: 'Wat zijn de kosten?', color: 'bg-green-100 text-green-600' },
-    { id: 1, platform: 'IG', name: 'Tom K.', msg: 'Heb je donderdag tijd?', color: 'bg-pink-100 text-pink-600' },
-    { id: 2, platform: 'FB', name: 'Lisa V.', msg: 'Ik wil graag starten.', color: 'bg-blue-100 text-blue-600' },
+    { id: 0, platform: <FaWhatsapp size={16} />, name: 'Sarah M.', msg: 'Kan ik mijn afspraak verzetten?', reply: 'Natuurlijk, via deze link kun je zelf een nieuw moment kiezen: [link]', color: 'bg-green-100 text-green-600' },
+    { id: 1, platform: <FaInstagram size={16} />, name: 'Tom K.', msg: 'Wat zijn jullie tarieven?', reply: 'Hi Tom! Je vindt al onze tarieven overzichtelijk op onze website: [link]', color: 'bg-pink-100 text-pink-600' },
+    { id: 2, platform: <FaFacebookMessenger size={16} />, name: 'Lisa V.', msg: 'Ik wil graag starten met coaching.', reply: 'Wat leuk Lisa! Zullen we een kort kennismakingsgesprek inplannen?', color: 'bg-blue-100 text-blue-600' },
   ];
 
   const [replies, setReplies] = useState<Record<number, string[]>>({});
@@ -15,7 +16,7 @@ const InboxFeature = () => {
   const handleReply = (id: number) => {
     setReplies(prev => ({
       ...prev,
-      [id]: [...(prev[id] || []), 'Zeker! Ik stuur je de info.']
+      [id]: [...(prev[id] || []), chats[id].reply]
     }));
   };
 
@@ -46,7 +47,7 @@ const InboxFeature = () => {
               onClick={() => setActiveChat(idx)}
               className={`w-full text-left p-2 md:p-3 rounded-lg transition-colors flex items-center justify-center md:justify-start gap-3 ${activeChat === idx ? 'bg-blue-50 border border-blue-100' : 'hover:bg-gray-50 border border-transparent'}`}
             >
-              <div className={`w-8 h-8 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0 ${chat.color}`}>
+              <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${chat.color}`}>
                 {chat.platform}
               </div>
               <div className="hidden md:block overflow-hidden">
@@ -283,7 +284,7 @@ const MissedCallFeature = () => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       whileHover={{ y: -5 }}
-      className="md:col-span-7 bg-deep-green rounded-[2rem] p-5 md:p-6 text-light shadow-xl relative overflow-hidden flex flex-col md:flex-row gap-8 items-center h-full hover:shadow-2xl transition-shadow"
+      className="md:col-span-7 bg-deep-green rounded-[2rem] p-5 md:p-6 text-light shadow-xl relative overflow-hidden flex flex-col lg:flex-row gap-8 items-center h-full hover:shadow-2xl transition-shadow"
     >
       <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-primary/10 rounded-full blur-[100px]"></div>
       
@@ -305,7 +306,7 @@ const MissedCallFeature = () => {
         </button>
       </div>
 
-      <div className="relative z-10 w-full md:w-64 bg-white rounded-3xl p-4 shadow-2xl border border-white/10 h-[250px] md:h-[280px] flex flex-col overflow-hidden shrink-0">
+      <div className="relative z-10 w-full lg:w-64 bg-white rounded-3xl p-4 shadow-2xl border border-white/10 h-[250px] md:h-[280px] flex flex-col overflow-hidden shrink-0">
         {/* Phone Header */}
         <div className="flex justify-between items-center mb-4 px-2">
           <div className="text-[10px] text-gray-800 font-bold">12:00</div>
