@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Zap, ShieldCheck, ArrowRight, PhoneCall, Calendar, ClipboardList, Users, CheckCircle2, Globe, Share2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import Modal from '../components/Modal';
@@ -13,12 +14,12 @@ const FlowEvent: React.FC = () => {
       {/* Navigation */}
       <div className="w-full flex justify-center px-4 pt-6">
         <nav className="bg-deep-green/95 backdrop-blur-xl border border-white/10 rounded-full px-8 py-4 shadow-2xl flex items-center justify-center max-w-4xl w-full transition-all hover:scale-[1.01]">
-            <a href="/" className="flex items-center gap-3 group">
+            <Link to="/" className="flex items-center gap-3 group">
                 <div className="w-10 h-10 rounded-full bg-[#C7A174] flex items-center justify-center text-[#213430] font-bold text-lg tracking-tight group-hover:scale-110 transition-transform">
                   ZG
                 </div>
                 <span className="font-serif text-2xl text-white tracking-wide hidden sm:block group-hover:text-[#C7A174] transition-colors">Zichtbare<span className="italic text-[#C7A174]">Groei</span></span>
-            </a>
+            </Link>
         </nav>
       </div>
 

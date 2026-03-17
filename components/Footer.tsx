@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, Mail, Instagram, Linkedin } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 interface FooterProps {
   onOpenModal: () => void;
@@ -121,22 +122,22 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
         {/* Footer Links & Branding */}
         <div className="border-t border-white/5 pt-12 flex flex-col lg:flex-row justify-between items-center gap-8">
            <div className="flex items-center gap-3">
-               <a href="/" target="_blank" rel="noopener noreferrer" className="flex items-center gap-3 group">
+               <Link to="/" className="flex items-center gap-3 group">
                    <div className="w-10 h-10 rounded-full bg-[#C7A174] flex items-center justify-center text-[#213430] font-bold text-lg tracking-tight group-hover:scale-110 transition-transform">
                      ZG
                    </div>
                    <span className="font-serif text-2xl text-white tracking-wide hidden sm:block group-hover:text-[#C7A174] transition-colors">Zichtbare<span className="italic text-[#C7A174]">Groei</span></span>
-               </a>
+               </Link>
                <div className="text-light/30 font-sans ml-2 text-xs">© {new Date().getFullYear()}</div>
            </div>
            
            <div className="flex flex-wrap justify-center gap-6 lg:gap-8 text-light/40 text-xs font-bold uppercase tracking-widest">
                <a href="/#methode" className="hover:text-primary transition-colors">De Methode</a>
-               <a href="/over-mij" className="hover:text-primary transition-colors">Over mij</a>
+               <Link to="/over-mij" className="hover:text-primary transition-colors">Over mij</Link>
                <a href="#" className="hover:text-primary transition-colors">Privacy</a>
                <a href="#" className="hover:text-primary transition-colors">Algemene Voorwaarden</a>
                <a href="#contact" className="hover:text-primary transition-colors">Contact</a>
-               <a href="/flow" className="hover:text-primary transition-colors text-primary/30">Flow Event</a>
+               <Link to="/flow" className="hover:text-primary transition-colors text-primary/30">Flow Event</Link>
            </div>
 
            <div className="flex gap-4">
