@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Mail, Instagram, Linkedin } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 
@@ -136,22 +136,8 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
                <Link to="/over-mij" className="hover:text-primary transition-colors">Over mij</Link>
                <a href="#" className="hover:text-primary transition-colors">Privacy</a>
                <a href="#" className="hover:text-primary transition-colors">Algemene Voorwaarden</a>
-               <a href="#contact" className="hover:text-primary transition-colors">Contact</a>
+               <a href="https://wa.me/31643411427" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Contact</a>
                <Link to="/flow" className="hover:text-primary transition-colors text-primary/30">Flow Event</Link>
-           </div>
-
-           <div className="flex gap-4">
-              {[Instagram, Linkedin, Mail].map((Icon, i) => (
-                <motion.a 
-                  key={i}
-                  href="#" 
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  whileTap={{ scale: 0.9 }}
-                  className="w-10 h-10 rounded-full border border-white/5 flex items-center justify-center text-light/40 hover:text-primary hover:border-primary/50 transition-colors bg-white/5"
-                >
-                  <Icon size={18} />
-                </motion.a>
-              ))}
            </div>
         </div>
       </div>

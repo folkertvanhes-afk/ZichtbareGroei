@@ -180,7 +180,9 @@ const PricingCalculator: React.FC = () => {
                     </ul>
 
                     <motion.a 
-                      href="#contact"
+                      href="https://wa.me/31643411427"
+                      target="_blank"
+                      rel="noopener noreferrer"
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                       className={`w-full py-5 rounded-xl font-bold text-sm uppercase tracking-widest transition-colors flex items-center justify-center gap-2 ${

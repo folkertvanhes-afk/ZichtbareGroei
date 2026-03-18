@@ -47,42 +47,47 @@ const Problem: React.FC = () => {
             className="flex-1 relative p-8 md:p-12 rounded-[2.5rem] bg-white border border-red-100 shadow-xl overflow-hidden flex flex-col"
           >
              {/* Animated Chaos Diagram */}
-             <div className="absolute top-0 right-0 w-full h-64 opacity-20 pointer-events-none overflow-hidden">
+             <div className="absolute top-0 right-0 w-full h-64 opacity-40 pointer-events-none overflow-hidden">
                 <svg className="w-full h-full" viewBox="0 0 400 200" preserveAspectRatio="none">
-                  {[...Array(10)].map((_, i) => (
+                  {[...Array(30)].map((_, i) => (
                     <motion.path
                       key={i}
-                      d={`M${Math.random() * 400},${Math.random() * 200} Q${Math.random() * 400},${Math.random() * 200} ${Math.random() * 400},${Math.random() * 200}`}
+                      d={`M${Math.random() * 400},${Math.random() * 200} Q${Math.random() * 400},${Math.random() * 200} ${Math.random() * 400},${Math.random() * 200} T${Math.random() * 400},${Math.random() * 200}`}
                       stroke="#ef4444"
-                      strokeWidth="1"
+                      strokeWidth={Math.random() * 2 + 0.5}
                       fill="none"
-                      strokeDasharray="4 4"
+                      strokeDasharray={`${Math.random() * 10 + 2} ${Math.random() * 10 + 2}`}
                       initial={{ pathLength: 0, opacity: 0 }}
-                      animate={{ pathLength: 1, opacity: [0.2, 0.5, 0.2] }}
-                      transition={{ duration: 3 + Math.random() * 2, repeat: Infinity, ease: "linear" }}
+                      animate={{ pathLength: 1, opacity: [0.2, 0.6, 0.2] }}
+                      transition={{ duration: 1 + Math.random() * 2, repeat: Infinity, ease: "linear" }}
                     />
                   ))}
                 </svg>
                 
                 {/* Floating disconnected tool icons */}
-                {[Mail, Calendar, MessageSquare, Database, Globe].map((Icon, i) => (
-                  <motion.div
-                    key={i}
-                    animate={{ 
-                      y: [0, Math.random() * 20 - 10, 0],
-                      x: [0, Math.random() * 20 - 10, 0],
-                      rotate: [0, Math.random() * 10 - 5, 0]
-                    }}
-                    transition={{ duration: 3 + Math.random() * 2, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute w-10 h-10 bg-white rounded-lg shadow-md border border-red-100 flex items-center justify-center text-red-400"
-                    style={{
-                      top: `${20 + Math.random() * 60}%`,
-                      left: `${20 + Math.random() * 60}%`
-                    }}
-                  >
-                    <Icon size={18} />
-                  </motion.div>
-                ))}
+                {[...Array(12)].map((_, i) => {
+                  const Icons = [Mail, Calendar, MessageSquare, Database, Globe, XCircle];
+                  const Icon = Icons[i % Icons.length];
+                  return (
+                    <motion.div
+                      key={i}
+                      animate={{ 
+                        y: [0, Math.random() * 60 - 30, 0],
+                        x: [0, Math.random() * 60 - 30, 0],
+                        rotate: [0, Math.random() * 180 - 90, 0],
+                        scale: [1, Math.random() * 0.5 + 0.8, 1]
+                      }}
+                      transition={{ duration: 1.5 + Math.random() * 2, repeat: Infinity, ease: "easeInOut" }}
+                      className="absolute w-10 h-10 bg-white rounded-lg shadow-md border border-red-200 flex items-center justify-center text-red-500"
+                      style={{
+                        top: `${10 + Math.random() * 80}%`,
+                        left: `${10 + Math.random() * 80}%`
+                      }}
+                    >
+                      <Icon size={Math.random() * 10 + 14} />
+                    </motion.div>
+                  );
+                })}
              </div>
              
              <div className="relative z-10 flex-1 mt-48">

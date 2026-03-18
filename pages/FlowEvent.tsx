@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import Modal from '../components/Modal';
 import ClaimSetupForm from '../components/ClaimSetupForm';
 import Footer from '../components/Footer';
+import SocialProof from '../components/SocialProof';
 
 const FlowEvent: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -263,6 +264,11 @@ const FlowEvent: React.FC = () => {
             </motion.div>
 
           </div>
+        </div>
+
+        {/* Social Proof */}
+        <div className="mb-24">
+          <SocialProof />
         </div>
 
         {/* 7. The Offer */}

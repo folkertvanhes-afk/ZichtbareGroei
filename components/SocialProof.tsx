@@ -103,8 +103,9 @@ const SocialProof: React.FC = () => {
                             {["Business Coaches", "Holistisch Therapeuten", "Personal Trainers", "Voedingsdeskundigen", "Relatietherapeuten", "Loopbaancoaches", "Mindset Trainers", "Klinisch Psychologen"].map((niche, index) => (
                                 <div 
                                     key={`${arrayIndex}-${index}`}
-                                    className="px-6 py-3 bg-white border border-deep-green/10 rounded-full text-deep-green font-medium shadow-sm whitespace-nowrap"
+                                    className="px-6 py-3 bg-deep-green text-white border border-primary/30 rounded-full font-medium shadow-[0_4px_15px_rgba(33,52,48,0.1)] whitespace-nowrap flex items-center gap-2"
                                 >
+                                    <span className="w-1.5 h-1.5 rounded-full bg-primary"></span>
                                     {niche}
                                 </div>
                             ))}

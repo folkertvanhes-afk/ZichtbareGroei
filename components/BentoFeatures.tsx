@@ -375,16 +375,18 @@ const MissedCallFeature = () => {
 
 const ReviewsFeature = () => {
   const [reviews, setReviews] = useState<number[]>([1]);
+  const [isRequesting, setIsRequesting] = useState(false);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setReviews(prev => {
-        if (prev.length >= 3) return [1];
-        return [...prev, prev.length + 1];
-      });
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
+  const requestReview = () => {
+    if (isRequesting || reviews.length >= 3) return;
+    setIsRequesting(true);
+    
+    // Simulate sending request and receiving review
+    setTimeout(() => {
+      setReviews(prev => [prev.length + 1, ...prev]);
+      setIsRequesting(false);
+    }, 1500);
+  };
 
   return (
     <motion.div 
@@ -404,10 +406,15 @@ const ReviewsFeature = () => {
             <p className="text-deep-green/60 text-sm">Bouw vertrouwen op de automatische piloot.</p>
           </div>
         </div>
-        <div className="flex items-center gap-3 text-sm font-bold text-deep-green mb-4">
-          <FaGoogle className="text-blue-500" size={20} />
-          <span>Meer 5-sterren reviews = Hoger in Google</span>
-        </div>
+        
+        <button 
+          onClick={requestReview}
+          disabled={isRequesting || reviews.length >= 3}
+          className="bg-primary text-deep-green px-5 py-2.5 rounded-full text-sm font-bold hover:scale-105 transition-transform disabled:opacity-50 disabled:hover:scale-100 flex items-center gap-2 w-fit"
+        >
+          {isRequesting ? 'Verzoek verzenden...' : reviews.length >= 3 ? 'Maximale reviews bereikt' : 'Simuleer Review Verzoek'}
+          <ArrowRight size={16} />
+        </button>
       </div>
       
       <div className="flex-1 w-full bg-gray-50 rounded-2xl p-6 border border-gray-100 relative min-h-[220px] flex flex-col justify-center items-center overflow-hidden">
@@ -417,22 +424,22 @@ const ReviewsFeature = () => {
             {reviews.map((id, index) => (
               <motion.div
                 key={id}
-                initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                initial={{ opacity: 0, y: -20, scale: 0.9 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.4 }}
+                transition={{ duration: 0.4, type: "spring" }}
                 className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex gap-3"
                 style={{ zIndex: reviews.length - index }}
               >
                 <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-xs shrink-0">
-                  {['M', 'A', 'J'][index % 3]}
+                  {['M', 'A', 'J'][id % 3]}
                 </div>
                 <div>
                   <div className="flex text-yellow-400 mb-1">
                     {[...Array(5)].map((_, i) => <Star key={i} size={12} className="fill-yellow-400" />)}
                   </div>
                   <div className="text-xs text-gray-600">
-                    {['"Geweldige service, echt een aanrader!"', '"Heel professioneel geholpen."', '"Top ervaring, ik kom zeker terug!"'][index % 3]}
+                    {['"Geweldige service, echt een aanrader!"', '"Heel professioneel geholpen."', '"Top ervaring, ik kom zeker terug!"'][id % 3]}
                   </div>
                 </div>
               </motion.div>
