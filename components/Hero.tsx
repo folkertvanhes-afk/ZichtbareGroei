@@ -36,7 +36,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
   };
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center pt-32 pb-20 overflow-hidden">
+    <section className="relative min-h-[110vh] flex flex-col items-center justify-center pt-40 pb-32 overflow-hidden">
       
       {/* Organic Background Shapes */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
@@ -121,13 +121,9 @@ const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.8 }}
-          className="flex flex-col sm:flex-row items-center gap-6 justify-center mb-16"
+          className="flex flex-col items-center mb-16"
         >
-          <motion.div
-            animate={{ boxShadow: ["0 0 0 0 rgba(199,161,116,0)", "0 0 0 15px rgba(199,161,116,0.2)", "0 0 0 30px rgba(199,161,116,0)"] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
-            className="rounded-xl"
-          >
+          <div className="flex flex-col sm:flex-row items-center gap-6 justify-center">
             <motion.button 
               onClick={onOpenModal}
               whileHover={{ scale: 1.05 }}
@@ -139,16 +135,23 @@ const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
               </span>
               <div className="absolute inset-0 bg-primary/20 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
             </motion.button>
-          </motion.div>
-          <motion.a 
-            href="#methode"
-            whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.8)" }}
-            whileTap={{ scale: 0.95 }}
-            className="px-10 py-5 glass-panel text-deep-green font-medium rounded-xl transition-all flex items-center gap-3 group"
-          >
-            <Sparkles size={18} className="text-primary" /> 
-            <span className="group-hover:text-primary transition-colors">BEKIJK DE METHODE</span>
-          </motion.a>
+            <motion.a 
+              href="#methode"
+              whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.8)" }}
+              whileTap={{ scale: 0.95 }}
+              className="px-10 py-5 glass-panel text-deep-green font-medium rounded-xl transition-all flex items-center gap-3 group"
+            >
+              <Sparkles size={18} className="text-primary" /> 
+              <span className="group-hover:text-primary transition-colors">BEKIJK DE METHODE</span>
+            </motion.a>
+          </div>
+          
+          {/* Risk Reversal Micro-copy */}
+          <div className="flex flex-wrap justify-center items-center gap-4 md:gap-8 mt-6 text-sm text-deep-green/60 font-medium">
+            <span className="flex items-center gap-2"><svg className="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg> 100% vrijblijvend</span>
+            <span className="flex items-center gap-2"><svg className="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg> Geen pushy sales pitch</span>
+            <span className="flex items-center gap-2"><svg className="w-4 h-4 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" /></svg> Direct inzicht in je kansen</span>
+          </div>
         </motion.div>
 
       </div>

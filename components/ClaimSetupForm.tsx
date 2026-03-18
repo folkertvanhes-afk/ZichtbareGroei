@@ -22,7 +22,7 @@ const ClaimSetupForm: React.FC = () => {
           Claim Jouw Setup
         </h3>
         <p className="text-deep-green/70 text-sm">
-          Vul je gegevens in om een van de 3 plekken te reserveren. We nemen snel contact met je op voor de volgende stappen.
+          Vul je gegevens in om de laatste plek te reserveren. We nemen snel contact met je op voor de volgende stappen.
         </p>
       </div>
 

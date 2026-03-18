@@ -6,6 +6,7 @@ import Roadmap from '../components/Roadmap';
 import BentoFeatures from '../components/BentoFeatures';
 import PricingCalculator from '../components/PricingCalculator';
 import SocialProof from '../components/SocialProof';
+import Founder from '../components/Founder';
 import Footer from '../components/Footer';
 import Modal from '../components/Modal';
 import AdviesgesprekForm from '../components/AdviesgesprekForm';
@@ -14,9 +15,9 @@ const Home: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className="min-h-screen text-deep-green selection:bg-primary selection:text-white font-sans">
-      {/* Navigation (Floating Luxury Pill) */}
-      <div className="fixed top-6 left-0 w-full z-50 flex justify-center px-4">
+    <div className="min-h-screen text-deep-green selection:bg-primary selection:text-white font-sans relative">
+      {/* Navigation (Floating Luxury Pill) - Changed from fixed to absolute */}
+      <div className="absolute top-6 left-0 w-full z-50 flex justify-center px-4">
         <nav className="bg-deep-green/95 backdrop-blur-xl border border-white/10 rounded-full px-8 py-4 shadow-2xl flex items-center gap-8 max-w-4xl w-full justify-between transition-all hover:scale-[1.01]">
             <Link to="/" className="flex items-center gap-3 group">
                 <div className="w-10 h-10 rounded-full bg-[#C7A174] flex items-center justify-center text-[#213430] font-bold text-lg tracking-tight group-hover:scale-110 transition-transform">
@@ -27,7 +28,7 @@ const Home: React.FC = () => {
             
             <div className="hidden md:flex items-center gap-8 text-xs font-medium uppercase tracking-widest text-light/70">
                 <a href="/#methode" className="hover:text-primary transition-colors">Methode</a>
-                <Link to="/over-mij" className="hover:text-primary transition-colors">Over mij</Link>
+                <a href="#over-mij" className="hover:text-primary transition-colors">Over mij</a>
             </div>
 
             <div className="flex items-center gap-4">
@@ -51,6 +52,7 @@ const Home: React.FC = () => {
         <Roadmap />
         <BentoFeatures />
         <PricingCalculator />
+        <Founder onOpenModal={() => setIsModalOpen(true)} />
       </main>
 
       <Footer onOpenModal={() => setIsModalOpen(true)} />

@@ -10,9 +10,9 @@ const AboutMe: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className="min-h-screen text-deep-green selection:bg-primary selection:text-white font-sans bg-background">
+    <div className="min-h-screen text-deep-green selection:bg-primary selection:text-white font-sans bg-background relative">
       {/* Navigation (Floating Luxury Pill) */}
-      <div className="fixed top-6 left-0 w-full z-50 flex justify-center px-4">
+      <div className="absolute top-6 left-0 w-full z-50 flex justify-center px-4">
         <nav className="bg-deep-green/95 backdrop-blur-xl border border-white/10 rounded-full px-8 py-4 shadow-2xl flex items-center gap-8 max-w-4xl w-full justify-between transition-all hover:scale-[1.01]">
             <Link to="/" className="flex items-center gap-3 group">
                 <div className="w-10 h-10 rounded-full bg-[#C7A174] flex items-center justify-center text-[#213430] font-bold text-lg tracking-tight group-hover:scale-110 transition-transform">
