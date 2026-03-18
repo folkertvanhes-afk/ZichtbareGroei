@@ -47,7 +47,7 @@ const Problem: React.FC = () => {
             className="flex-1 relative p-8 md:p-12 rounded-[2.5rem] bg-white border border-red-100 shadow-xl overflow-hidden flex flex-col"
           >
              {/* Animated Chaos Diagram */}
-             <div className="absolute top-0 right-0 w-full h-64 opacity-40 pointer-events-none overflow-hidden">
+             <div className="absolute inset-0 w-full h-full opacity-[0.15] pointer-events-none overflow-hidden">
                 <svg className="w-full h-full" viewBox="0 0 400 200" preserveAspectRatio="none">
                   {[...Array(30)].map((_, i) => (
                     <motion.path
@@ -59,7 +59,7 @@ const Problem: React.FC = () => {
                       strokeDasharray={`${Math.random() * 10 + 2} ${Math.random() * 10 + 2}`}
                       initial={{ pathLength: 0, opacity: 0 }}
                       animate={{ pathLength: 1, opacity: [0.2, 0.6, 0.2] }}
-                      transition={{ duration: 1 + Math.random() * 2, repeat: Infinity, ease: "linear" }}
+                      transition={{ duration: 4 + Math.random() * 4, repeat: Infinity, ease: "linear" }}
                     />
                   ))}
                 </svg>
@@ -77,7 +77,7 @@ const Problem: React.FC = () => {
                         rotate: [0, Math.random() * 180 - 90, 0],
                         scale: [1, Math.random() * 0.5 + 0.8, 1]
                       }}
-                      transition={{ duration: 1.5 + Math.random() * 2, repeat: Infinity, ease: "easeInOut" }}
+                      transition={{ duration: 5 + Math.random() * 4, repeat: Infinity, ease: "easeInOut" }}
                       className="absolute w-10 h-10 bg-white rounded-lg shadow-md border border-red-200 flex items-center justify-center text-red-500"
                       style={{
                         top: `${10 + Math.random() * 80}%`,
@@ -90,7 +90,7 @@ const Problem: React.FC = () => {
                 })}
              </div>
              
-             <div className="relative z-10 flex-1 mt-48">
+             <div className="relative z-10 flex-1">
                 <div className="inline-block px-4 py-1.5 rounded-full bg-red-50 text-red-500 text-xs font-bold uppercase tracking-widest mb-8 border border-red-100 shadow-sm">
                     De Oude Manier
                 </div>
@@ -124,7 +124,7 @@ const Problem: React.FC = () => {
             className="flex-1 relative p-8 md:p-12 rounded-[2.5rem] bg-deep-green shadow-2xl overflow-hidden flex flex-col"
           >
             {/* Animated Clarity Diagram */}
-            <div className="absolute top-0 right-0 w-full h-64 pointer-events-none overflow-hidden flex items-center justify-center">
+            <div className="absolute inset-0 w-full h-full opacity-[0.25] pointer-events-none overflow-hidden flex items-center justify-center">
                 {/* Central Glowing Hub */}
                 <motion.div 
                   animate={{ scale: [1, 1.05, 1], opacity: [0.8, 1, 0.8] }}
@@ -200,7 +200,7 @@ const Problem: React.FC = () => {
                 ))}
             </div>
             
-            <div className="relative z-10 flex-1 mt-48">
+            <div className="relative z-10 flex-1">
                <div className="inline-block px-4 py-1.5 rounded-full bg-primary/20 text-primary text-xs font-bold uppercase tracking-widest mb-8 border border-primary/30 shadow-[0_0_15px_rgba(199,161,116,0.2)]">
                    De ZichtbareGroei Manier
                </div>

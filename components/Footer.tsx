@@ -122,7 +122,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
         {/* Footer Links & Branding */}
         <div className="border-t border-white/5 pt-12 flex flex-col lg:flex-row justify-between items-center gap-8">
            <div className="flex items-center gap-3">
-               <Link to="/" className="flex items-center gap-3 group">
+               <Link to="/" onClick={() => window.scrollTo(0, 0)} className="flex items-center gap-3 group">
                    <div className="w-10 h-10 rounded-full bg-[#C7A174] flex items-center justify-center text-[#213430] font-bold text-lg tracking-tight group-hover:scale-110 transition-transform">
                      ZG
                    </div>
@@ -133,11 +133,11 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
            
            <div className="flex flex-wrap justify-center gap-6 lg:gap-8 text-light/40 text-xs font-bold uppercase tracking-widest">
                <a href="/#methode" className="hover:text-primary transition-colors">De Methode</a>
-               <Link to="/over-mij" className="hover:text-primary transition-colors">Over mij</Link>
+               <Link to="/over-mij" onClick={() => window.scrollTo(0, 0)} className="hover:text-primary transition-colors">Over mij</Link>
                <a href="#" className="hover:text-primary transition-colors">Privacy</a>
                <a href="#" className="hover:text-primary transition-colors">Algemene Voorwaarden</a>
                <a href="https://wa.me/31643411427" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Contact</a>
-               <Link to="/flow" className="hover:text-primary transition-colors text-primary/30">Flow Event</Link>
+               <Link to="/flow" onClick={() => window.scrollTo(0, 0)} className="hover:text-primary transition-colors text-primary/30">Flow Event</Link>
            </div>
         </div>
       </div>

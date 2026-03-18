@@ -30,8 +30,8 @@ const testimonials = [
 const SocialProof: React.FC = () => {
   return (
     <>
-      <section className="py-20 border-y border-deep-green/5 bg-surface relative overflow-hidden">
-        <div className="container mx-auto px-6 mb-16 text-center">
+      <section className="pt-20 pb-16 border-t border-deep-green/5 bg-surface relative overflow-hidden">
+        <div className="container mx-auto px-6 text-center">
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -85,10 +85,11 @@ const SocialProof: React.FC = () => {
                 ))}
             </div>
         </div>
+      </section>
         
-        {/* Niches Section */}
-        <div className="relative overflow-hidden w-full py-16 border-t border-deep-green/5 bg-background flex flex-col items-center">
-            <div className="container mx-auto px-6 text-center mb-8">
+      {/* Niches Section */}
+      <section className="relative overflow-hidden w-full py-16 border-y border-deep-green/5 bg-background flex flex-col items-center">
+          <div className="container mx-auto px-6 text-center mb-8">
                 <h3 className="text-2xl font-serif text-deep-green">Speciaal gebouwd voor:</h3>
             </div>
             
@@ -116,7 +117,6 @@ const SocialProof: React.FC = () => {
             
             <div className="absolute top-0 left-0 h-full w-32 bg-gradient-to-r from-background to-transparent pointer-events-none"></div>
             <div className="absolute top-0 right-0 h-full w-32 bg-gradient-to-l from-background to-transparent pointer-events-none"></div>
-        </div>
       </section>
     </>
   );

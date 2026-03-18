@@ -5,7 +5,6 @@ import { motion } from 'framer-motion';
 import Modal from '../components/Modal';
 import ClaimSetupForm from '../components/ClaimSetupForm';
 import Footer from '../components/Footer';
-import SocialProof from '../components/SocialProof';
 
 const FlowEvent: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -13,7 +12,7 @@ const FlowEvent: React.FC = () => {
   return (
     <div className="min-h-screen bg-background text-deep-green font-sans selection:bg-primary selection:text-white">
       {/* Navigation */}
-      <div className="w-full flex justify-center px-4 pt-6">
+      <div className="fixed top-6 left-0 w-full z-50 flex justify-center px-4">
         <nav className="bg-deep-green/95 backdrop-blur-xl border border-white/10 rounded-full px-8 py-4 shadow-2xl flex items-center justify-center max-w-4xl w-full transition-all hover:scale-[1.01]">
             <Link to="/" className="flex items-center gap-3 group">
                 <div className="w-10 h-10 rounded-full bg-[#C7A174] flex items-center justify-center text-[#213430] font-bold text-lg tracking-tight group-hover:scale-110 transition-transform">
@@ -24,7 +23,7 @@ const FlowEvent: React.FC = () => {
         </nav>
       </div>
 
-      <main className="max-w-3xl mx-auto px-4 py-16 sm:py-24">
+      <main className="max-w-3xl mx-auto px-4 py-16 sm:py-24 pt-32">
         {/* 1. Pre-headline */}
         <div className="text-center mb-6">
           <span className="inline-block py-1 px-3 rounded-full bg-primary/20 text-primary font-bold text-xs uppercase tracking-widest border border-primary/30">
@@ -264,11 +263,6 @@ const FlowEvent: React.FC = () => {
             </motion.div>
 
           </div>
-        </div>
-
-        {/* Social Proof */}
-        <div className="mb-24">
-          <SocialProof />
         </div>
 
         {/* 7. The Offer */}

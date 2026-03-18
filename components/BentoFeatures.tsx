@@ -375,16 +375,20 @@ const MissedCallFeature = () => {
 
 const ReviewsFeature = () => {
   const [reviews, setReviews] = useState<number[]>([1]);
-  const [isRequesting, setIsRequesting] = useState(false);
+  const [status, setStatus] = useState<'idle' | 'sending' | 'typing'>('idle');
 
   const requestReview = () => {
-    if (isRequesting || reviews.length >= 3) return;
-    setIsRequesting(true);
+    if (status !== 'idle' || reviews.length >= 3) return;
+    setStatus('sending');
     
-    // Simulate sending request and receiving review
+    // Simulate sending request
     setTimeout(() => {
-      setReviews(prev => [prev.length + 1, ...prev]);
-      setIsRequesting(false);
+      setStatus('typing');
+      // Simulate client typing and receiving review
+      setTimeout(() => {
+        setReviews(prev => [prev.length + 1, ...prev]);
+        setStatus('idle');
+      }, 2000);
     }, 1500);
   };
 
@@ -409,11 +413,21 @@ const ReviewsFeature = () => {
         
         <button 
           onClick={requestReview}
-          disabled={isRequesting || reviews.length >= 3}
+          disabled={status !== 'idle' || reviews.length >= 3}
           className="bg-primary text-deep-green px-5 py-2.5 rounded-full text-sm font-bold hover:scale-105 transition-transform disabled:opacity-50 disabled:hover:scale-100 flex items-center gap-2 w-fit"
         >
-          {isRequesting ? 'Verzoek verzenden...' : reviews.length >= 3 ? 'Maximale reviews bereikt' : 'Simuleer Review Verzoek'}
-          <ArrowRight size={16} />
+          {status === 'sending' ? 'Verzoek verzenden...' : 
+           status === 'typing' ? 'Klant typt review...' :
+           reviews.length >= 3 ? 'Maximale reviews bereikt' : 'Simuleer Review Verzoek'}
+          {status === 'idle' && reviews.length < 3 && <ArrowRight size={16} />}
+          {status === 'sending' && (
+            <motion.div
+              animate={{ x: [0, 10, 0], opacity: [1, 0, 1] }}
+              transition={{ duration: 1, repeat: Infinity }}
+            >
+              <ArrowRight size={16} />
+            </motion.div>
+          )}
         </button>
       </div>
       
@@ -421,16 +435,43 @@ const ReviewsFeature = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-50/80 z-10 pointer-events-none"></div>
         <div className="space-y-3 w-full max-w-sm relative z-0">
           <AnimatePresence>
-            {reviews.map((id, index) => (
+            {status === 'typing' && (
               <motion.div
-                key={id}
+                key="typing"
                 initial={{ opacity: 0, y: -20, scale: 0.9 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.4, type: "spring" }}
-                className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex gap-3"
+                className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex gap-3 z-50"
+              >
+                <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500 font-bold text-xs shrink-0">
+                  ?
+                </div>
+                <div className="flex items-center gap-1">
+                  <motion.div animate={{ y: [0, -5, 0] }} transition={{ duration: 0.6, repeat: Infinity, delay: 0 }} className="w-2 h-2 bg-gray-400 rounded-full" />
+                  <motion.div animate={{ y: [0, -5, 0] }} transition={{ duration: 0.6, repeat: Infinity, delay: 0.2 }} className="w-2 h-2 bg-gray-400 rounded-full" />
+                  <motion.div animate={{ y: [0, -5, 0] }} transition={{ duration: 0.6, repeat: Infinity, delay: 0.4 }} className="w-2 h-2 bg-gray-400 rounded-full" />
+                </div>
+              </motion.div>
+            )}
+            {reviews.map((id, index) => (
+              <motion.div
+                key={id}
+                initial={{ opacity: 0, y: -20, scale: 0.9, filter: 'blur(10px)' }}
+                animate={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.5, type: "spring", bounce: 0.4 }}
+                className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex gap-3 relative"
                 style={{ zIndex: reviews.length - index }}
               >
+                {/* Highlight glow effect for new reviews */}
+                {index === 0 && (
+                  <motion.div 
+                    initial={{ opacity: 1 }}
+                    animate={{ opacity: 0 }}
+                    transition={{ duration: 1.5, delay: 0.5 }}
+                    className="absolute inset-0 rounded-xl ring-2 ring-primary ring-offset-2"
+                  />
+                )}
                 <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-xs shrink-0">
                   {['M', 'A', 'J'][id % 3]}
                 </div>

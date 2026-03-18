@@ -123,17 +123,23 @@ const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
           transition={{ duration: 0.8, delay: 0.8 }}
           className="flex flex-col sm:flex-row items-center gap-6 justify-center mb-16"
         >
-          <motion.button 
-            onClick={onOpenModal}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="px-10 py-5 bg-deep-green text-light font-bold rounded-xl hover:bg-deep-green/90 transition-colors shadow-xl flex items-center gap-3 group relative overflow-hidden"
+          <motion.div
+            animate={{ boxShadow: ["0 0 0 0 rgba(199,161,116,0)", "0 0 0 15px rgba(199,161,116,0.2)", "0 0 0 30px rgba(199,161,116,0)"] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
+            className="rounded-xl"
           >
-            <span className="relative z-10 flex items-center gap-3">
-              PLAN ADVIESGESPREK <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-            </span>
-            <div className="absolute inset-0 bg-primary/20 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
-          </motion.button>
+            <motion.button 
+              onClick={onOpenModal}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="px-10 py-5 bg-deep-green text-light font-bold rounded-xl hover:bg-deep-green/90 transition-colors shadow-xl flex items-center gap-3 group relative overflow-hidden"
+            >
+              <span className="relative z-10 flex items-center gap-3">
+                PLAN ADVIESGESPREK <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+              </span>
+              <div className="absolute inset-0 bg-primary/20 transform -translate-x-full group-hover:translate-x-0 transition-transform duration-500"></div>
+            </motion.button>
+          </motion.div>
           <motion.a 
             href="#methode"
             whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.8)" }}

@@ -99,7 +99,7 @@ const PricingCalculator: React.FC = () => {
                 <motion.div 
                     variants={itemVariants}
                     key={plan.name}
-                    whileHover={{ y: -10, transition: { duration: 0.2 } }}
+                    whileHover={{ y: -10, boxShadow: plan.highlight ? "0 25px 50px -12px rgba(199,161,116,0.25)" : "0 25px 50px -12px rgba(0,0,0,0.1)", transition: { duration: 0.2 } }}
                     className={`rounded-[2.5rem] p-8 flex flex-col transition-all duration-300 relative group
                     ${plan.highlight 
                         ? 'bg-deep-green text-light shadow-2xl z-10 lg:scale-105' 
