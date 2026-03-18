@@ -234,6 +234,34 @@ const FlowEvent: React.FC = () => {
               </div>
             </motion.div>
 
+            {/* Block 6: Reviews */}
+            <motion.div 
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              className="bg-white rounded-[2rem] shadow-xl shadow-black/5 border border-black/5 relative overflow-hidden group hover:border-primary/30 transition-colors flex flex-col md:flex-row-reverse"
+            >
+              <div className="md:w-2/5 relative h-64 md:h-auto overflow-hidden">
+                <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&q=80&w=800" alt="Reviews" className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" referrerPolicy="no-referrer" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent md:bg-gradient-to-l"></div>
+                <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm p-3 rounded-2xl shadow-lg flex items-center gap-3">
+                  <div className="text-sm font-bold text-deep-green">Automatische Reviews</div>
+                  <div className="w-10 h-10 bg-primary/20 rounded-full flex items-center justify-center text-primary">
+                    <Globe className="w-5 h-5" />
+                  </div>
+                </div>
+              </div>
+              <div className="p-8 md:p-10 md:w-3/5 relative">
+                <div className="absolute top-6 left-6 md:left-auto md:right-6 bg-red-50 text-red-600 font-bold px-4 py-1.5 rounded-full text-sm border border-red-100">
+                  Waarde: €197
+                </div>
+                <h3 className="text-2xl font-bold mb-4 mt-10 md:mt-0 md:pr-24">Automatische Google Reviews</h3>
+                <p className="text-deep-green/80 leading-relaxed">
+                  Bouw vertrouwen op de automatische piloot. Na een afspraak stuurt het systeem vanzelf een verzoek om een Google Review. Meer 5-sterren reviews betekent direct een hogere positie in Google.
+                </p>
+              </div>
+            </motion.div>
+
           </div>
         </div>
 
@@ -285,9 +313,16 @@ const FlowEvent: React.FC = () => {
                     </div>
                     <span className="text-light/50 line-through">€297</span>
                   </li>
+                  <li className="flex items-center justify-between border-b border-white/10 pb-4">
+                    <div className="flex items-center gap-3">
+                      <CheckCircle2 className="w-5 h-5 text-primary" />
+                      <span className="text-lg">Automatische Google Reviews</span>
+                    </div>
+                    <span className="text-light/50 line-through">€197</span>
+                  </li>
                   <li className="flex items-center justify-between pt-2">
                     <span className="text-xl font-bold">Totale Waarde:</span>
-                    <span className="text-xl font-bold text-red-400 line-through">€1.485,-</span>
+                    <span className="text-xl font-bold text-red-400 line-through">€1.682,-</span>
                   </li>
                 </ul>
 

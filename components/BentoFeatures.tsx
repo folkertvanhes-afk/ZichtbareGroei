@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Calendar, Filter, PhoneMissed, CheckCircle2, Inbox, Sparkles, Send, User, Clock, ArrowRight } from 'lucide-react';
-import { FaWhatsapp, FaInstagram, FaFacebookMessenger } from 'react-icons/fa';
+import { Calendar, Filter, PhoneMissed, CheckCircle2, Inbox, Sparkles, Send, User, Clock, ArrowRight, Star } from 'lucide-react';
+import { FaWhatsapp, FaInstagram, FaFacebookMessenger, FaGoogle } from 'react-icons/fa';
 
 const InboxFeature = () => {
   const [activeChat, setActiveChat] = useState(0);
@@ -373,6 +373,77 @@ const MissedCallFeature = () => {
   );
 };
 
+const ReviewsFeature = () => {
+  const [reviews, setReviews] = useState<number[]>([1]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setReviews(prev => {
+        if (prev.length >= 3) return [1];
+        return [...prev, prev.length + 1];
+      });
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      whileHover={{ y: -5 }}
+      className="md:col-span-12 bg-white rounded-[2rem] p-5 md:p-6 shadow-sm border border-deep-green/5 relative overflow-hidden flex flex-col md:flex-row items-center gap-8 hover:shadow-xl transition-shadow"
+    >
+      <div className="flex-1 w-full">
+        <div className="flex items-center gap-4 mb-6">
+          <div className="w-12 h-12 bg-yellow-50 rounded-xl flex items-center justify-center text-yellow-600 shrink-0">
+            <Star size={24} className="fill-yellow-500" />
+          </div>
+          <div>
+            <h3 className="text-2xl font-serif text-deep-green">Automatische Reviews</h3>
+            <p className="text-deep-green/60 text-sm">Bouw vertrouwen op de automatische piloot.</p>
+          </div>
+        </div>
+        <div className="flex items-center gap-3 text-sm font-bold text-deep-green mb-4">
+          <FaGoogle className="text-blue-500" size={20} />
+          <span>Meer 5-sterren reviews = Hoger in Google</span>
+        </div>
+      </div>
+      
+      <div className="flex-1 w-full bg-gray-50 rounded-2xl p-6 border border-gray-100 relative min-h-[220px] flex flex-col justify-center items-center overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-gray-50/80 z-10 pointer-events-none"></div>
+        <div className="space-y-3 w-full max-w-sm relative z-0">
+          <AnimatePresence>
+            {reviews.map((id, index) => (
+              <motion.div
+                key={id}
+                initial={{ opacity: 0, y: 20, scale: 0.9 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.9 }}
+                transition={{ duration: 0.4 }}
+                className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex gap-3"
+                style={{ zIndex: reviews.length - index }}
+              >
+                <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-xs shrink-0">
+                  {['M', 'A', 'J'][index % 3]}
+                </div>
+                <div>
+                  <div className="flex text-yellow-400 mb-1">
+                    {[...Array(5)].map((_, i) => <Star key={i} size={12} className="fill-yellow-400" />)}
+                  </div>
+                  <div className="text-xs text-gray-600">
+                    {['"Geweldige service, echt een aanrader!"', '"Heel professioneel geholpen."', '"Top ervaring, ik kom zeker terug!"'][index % 3]}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
 const BentoFeatures: React.FC = () => {
   return (
     <section className="py-32 relative bg-surface overflow-hidden" id="methode">
@@ -399,6 +470,7 @@ const BentoFeatures: React.FC = () => {
           <AgendaFeature />
           <FiltersFeature />
           <MissedCallFeature />
+          <ReviewsFeature />
         </div>
       </div>
     </section>
