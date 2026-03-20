@@ -50,6 +50,7 @@ const AboutMe: React.FC<AboutMeProps> = ({ onOpenModal }) => {
             <div className="relative">
               <div className="relative rounded-[2rem] overflow-hidden shadow-2xl aspect-[4/5] border-4 border-white bg-white">
                 <div className="absolute inset-0 bg-deep-green/10 mix-blend-multiply z-10"></div>
+                {/* VERVANG DEZE FOTO: Pas de 'src' aan naar de URL van jouw eigen foto */}
                 <img 
                   src="https://assets.cdn.filesafe.space/Xn0ouMgD2stq6OuI1a4H/media/696bf4d4b34b64020e600c8b.png" 
                   alt="Folkert van Hes" 

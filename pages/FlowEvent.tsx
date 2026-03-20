@@ -12,7 +12,7 @@ const FlowEvent: React.FC = () => {
   return (
     <div className="min-h-screen bg-background text-deep-green font-sans selection:bg-primary selection:text-white">
       {/* Navigation */}
-      <div className="fixed top-6 left-0 w-full z-50 flex justify-center px-4">
+      <div className="absolute top-6 left-0 w-full z-50 flex justify-center px-4">
         <nav className="bg-deep-green/95 backdrop-blur-xl border border-white/10 rounded-full px-8 py-4 shadow-2xl flex items-center justify-center max-w-4xl w-full transition-all hover:scale-[1.01]">
             <Link to="/" className="flex items-center gap-3 group">
                 <div className="w-10 h-10 rounded-full bg-[#C7A174] flex items-center justify-center text-[#213430] font-bold text-lg tracking-tight group-hover:scale-110 transition-transform">
@@ -344,11 +344,11 @@ const FlowEvent: React.FC = () => {
                   className="group relative inline-flex items-center justify-center px-8 py-5 text-lg font-bold text-deep-green bg-primary rounded-full overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(199,161,116,0.4)] w-full sm:w-auto mb-4"
                 >
                   <span className="relative flex items-center gap-2">
-                    Claim Deze Setup (Nog 3 Plekken) <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+                    Claim Deze Setup (Nog 1 Plek) <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
                   </span>
                 </button>
                 <p className="text-light/60 text-sm max-w-sm mx-auto">
-                  * Om de hoogste kwaliteit en persoonlijke aandacht te waarborgen voor deze 100% Done-For-You setup, neem ik maximaal 3 ondernemers aan tijdens dit event.
+                  * Om de hoogste kwaliteit en persoonlijke aandacht te waarborgen voor deze 100% Done-For-You setup, neem ik slechts 1 ondernemer aan tijdens dit event.
                 </p>
               </div>
             </div>
