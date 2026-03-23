@@ -7,18 +7,73 @@ const AdviesgesprekForm: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
+  // Form state
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    website: '',
+    challenge: ''
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
   const handleNextStep = (e: React.MouseEvent) => {
     e.preventDefault();
+    const form = (e.target as HTMLElement).closest('form');
+    if (form) {
+      const nameInput = form.querySelector('input[name="name"]') as HTMLInputElement;
+      const emailInput = form.querySelector('input[name="email"]') as HTMLInputElement;
+      
+      if (nameInput && !nameInput.checkValidity()) {
+        nameInput.reportValidity();
+        return;
+      }
+      if (emailInput && !emailInput.checkValidity()) {
+        emailInput.reportValidity();
+        return;
+      }
+    }
     setFormStep(2);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
+    
+    const data = {
+      ...formData,
+      source: 'Adviesgesprek Form'
+    };
+
+    try {
+      const webhookUrl = import.meta.env.VITE_GHL_WEBHOOK_URL;
+      
+      if (webhookUrl) {
+        // Fire and forget: we don't await the fetch so the user doesn't have to wait
+        fetch(webhookUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        }).catch(err => console.error('Webhook error:', err));
+      } else {
+        console.warn('Geen GHL Webhook URL geconfigureerd. Formulier data is niet verstuurd.');
+      }
+      
+      // Simulate a short delay for UX so the button spinner is visible briefly
+      await new Promise(resolve => setTimeout(resolve, 600));
+      
       setIsSuccess(true);
-    }, 1500);
+    } catch (error) {
+      console.error('Fout bij het versturen van formulier:', error);
+      setIsSuccess(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -60,14 +115,14 @@ const AdviesgesprekForm: React.FC = () => {
                     <label className="block text-xs font-bold text-deep-green mb-1 uppercase tracking-wider">Jouw Naam</label>
                     <div className="relative">
                       <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-                      <input required type="text" placeholder="Voor- en achternaam" className="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-deep-green" />
+                      <input required name="name" value={formData.name} onChange={handleInputChange} type="text" placeholder="Voor- en achternaam" className="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-deep-green" />
                     </div>
                   </div>
                   <div>
                     <label className="block text-xs font-bold text-deep-green mb-1 uppercase tracking-wider">E-mailadres</label>
                     <div className="relative">
                       <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-                      <input required type="email" placeholder="jouw@email.nl" className="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-deep-green" />
+                      <input required name="email" value={formData.email} onChange={handleInputChange} type="email" placeholder="jouw@email.nl" className="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-deep-green" />
                     </div>
                   </div>
                   <button
@@ -87,12 +142,12 @@ const AdviesgesprekForm: React.FC = () => {
                     <label className="block text-xs font-bold text-deep-green mb-1 uppercase tracking-wider">Website (Optioneel)</label>
                     <div className="relative">
                       <Globe className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
-                      <input type="url" placeholder="www.jouwwebsite.nl" className="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-deep-green" />
+                      <input name="website" value={formData.website} onChange={handleInputChange} type="url" placeholder="www.jouwwebsite.nl" className="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-50 border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-deep-green" />
                     </div>
                   </div>
                   <div>
                     <label className="block text-xs font-bold text-deep-green mb-1 uppercase tracking-wider">Grootste uitdaging?</label>
-                    <textarea rows={3} placeholder="Waar loop je momenteel tegenaan?" className="w-full p-4 rounded-xl bg-gray-50 border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-deep-green resize-none"></textarea>
+                    <textarea name="challenge" value={formData.challenge} onChange={handleInputChange} rows={3} placeholder="Waar loop je momenteel tegenaan?" className="w-full p-4 rounded-xl bg-gray-50 border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all text-deep-green resize-none"></textarea>
                   </div>
                   <div className="flex gap-3 mt-4">
                     <button
@@ -120,18 +175,38 @@ const AdviesgesprekForm: React.FC = () => {
               animate={{ opacity: 1, scale: 1 }}
               className="bg-deep-green rounded-2xl p-8 shadow-xl border border-white/10 h-full flex flex-col items-center justify-center text-center"
             >
-              <div className="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center mb-6">
-                <CheckCircle2 className="text-primary w-10 h-10" />
+              <div className="w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center mb-6">
+                <CheckCircle2 className="text-primary w-8 h-8" />
               </div>
-              <h4 className="text-2xl font-serif text-white mb-2">Aanvraag Ontvangen!</h4>
-              <p className="text-light/70 mb-8">
-                We nemen binnen 24 uur contact met je op om het adviesgesprek in te plannen.
-              </p>
+              <h4 className="text-2xl font-serif text-white mb-4">Bedankt, we hebben het ontvangen!</h4>
+              
+              <div className="text-left bg-white/5 p-6 rounded-xl border border-white/10 mb-8 w-full">
+                <h5 className="text-primary font-bold mb-3 text-sm uppercase tracking-wider">Wat gebeurt er nu?</h5>
+                <ul className="space-y-3 text-light/80 text-sm">
+                  <li className="flex gap-3">
+                    <span className="text-primary font-bold">1.</span>
+                    <span>Ik neem binnen 24 uur persoonlijk contact met je op.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-primary font-bold">2.</span>
+                    <span>We plannen een moment in dat perfect voor jou uitkomt.</span>
+                  </li>
+                  <li className="flex gap-3">
+                    <span className="text-primary font-bold">3.</span>
+                    <span>We duiken direct in jouw grootste knelpunt en maken een concreet plan.</span>
+                  </li>
+                </ul>
+              </div>
+
               <button
-                onClick={() => { setIsSuccess(false); setFormStep(1); }}
-                className="px-6 py-2 border border-white/20 text-white rounded-full hover:bg-white/10 transition-colors text-sm"
+                onClick={() => { 
+                  setIsSuccess(false); 
+                  setFormStep(1); 
+                  setFormData({ name: '', email: '', website: '', challenge: '' });
+                }}
+                className="px-6 py-3 bg-primary text-deep-green font-bold rounded-xl hover:bg-[#d4b68f] transition-colors text-sm w-full"
               >
-                Nieuwe aanvraag
+                Begrepen, tot snel!
               </button>
             </motion.div>
           )}
