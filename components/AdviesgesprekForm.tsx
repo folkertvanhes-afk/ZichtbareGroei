@@ -56,22 +56,16 @@ const AdviesgesprekForm: React.FC<AdviesgesprekFormProps> = ({ onClose }) => {
     };
 
     try {
-      const webhookUrl = import.meta.env.VITE_GHL_WEBHOOK_URL;
+      const webhookUrl = import.meta.env.VITE_GHL_WEBHOOK_URL || 'https://services.leadconnectorhq.com/hooks/e19oE0MjZs7GvO35FhLE/webhook-trigger/5812824c-6ae2-40eb-9ff4-258bde370744';
       
       if (webhookUrl) {
-        const urlParams = new URLSearchParams();
-        Object.entries(data).forEach(([key, value]) => {
-          urlParams.append(key, value as string);
-        });
-
         // Fire and forget: we don't await the fetch so the user doesn't have to wait
         fetch(webhookUrl, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Type': 'application/json',
           },
-          body: urlParams,
-          mode: 'no-cors'
+          body: JSON.stringify(data),
         }).catch(err => console.error('Webhook error:', err));
       } else {
         console.warn('Geen GHL Webhook URL geconfigureerd. Formulier data is niet verstuurd.');
