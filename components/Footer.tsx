@@ -1,13 +1,16 @@
 import React from 'react';
 import { ArrowRight, CheckCircle2 } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 interface FooterProps {
   onOpenModal: () => void;
 }
 
 const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
+  const location = useLocation();
+  const isFlowPage = location.pathname === '/flow';
+  
   // Get current month in Dutch
   const currentMonth = new Date().toLocaleString('nl-NL', { month: 'long' });
 
@@ -69,9 +72,9 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
                 onClick={onOpenModal}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="px-10 py-5 bg-primary text-deep-green text-lg font-bold rounded-xl hover:bg-[#d4b68f] transition-colors shadow-[0_0_30px_rgba(199,161,116,0.2)] flex items-center gap-3 mx-auto group"
+                className="px-10 py-5 bg-primary text-deep-green text-lg font-bold rounded-xl hover:bg-[#d4b68f] transition-colors shadow-[0_0_30px_rgba(199,161,116,0.2)] flex items-center gap-3 mx-auto group uppercase"
               >
-                PLAN ADVIESGESPREK
+                {isFlowPage ? 'AANVRAGEN' : 'PLAN ADVIESGESPREK'}
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
               </motion.button>
               
@@ -98,7 +101,7 @@ const Footer: React.FC<FooterProps> = ({ onOpenModal }) => {
            
            <div className="flex flex-wrap justify-center gap-6 lg:gap-8 text-light/40 text-xs font-bold uppercase tracking-widest">
                <a href="/#methode" className="hover:text-primary transition-colors">De Methode</a>
-               <Link to="/over-mij" onClick={() => window.scrollTo(0, 0)} className="hover:text-primary transition-colors">Over mij</Link>
+               <Link to="/over-mij" onClick={() => window.scrollTo(0, 0)} className="hover:text-primary transition-colors">Over ons</Link>
                <a href="#" className="hover:text-primary transition-colors">Privacy</a>
                <a href="#" className="hover:text-primary transition-colors">Algemene Voorwaarden</a>
                <a href="https://wa.me/31643411427" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Contact</a>

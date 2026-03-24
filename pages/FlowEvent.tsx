@@ -344,7 +344,7 @@ const FlowEvent: React.FC = () => {
                   className="group relative inline-flex items-center justify-center px-8 py-5 text-lg font-bold text-deep-green bg-primary rounded-full overflow-hidden transition-all hover:scale-105 hover:shadow-[0_0_40px_rgba(199,161,116,0.4)] w-full sm:w-auto mb-4"
                 >
                   <span className="relative flex items-center gap-2">
-                    Claim Deze Setup (Nog 1 Plek) <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
+                    Aanvragen (Nog 1 Plek) <ArrowRight className="w-6 h-6 group-hover:translate-x-1 transition-transform" />
                   </span>
                 </button>
                 <p className="text-light/60 text-sm max-w-sm mx-auto">

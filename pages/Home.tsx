@@ -28,7 +28,7 @@ const Home: React.FC = () => {
             
             <div className="hidden md:flex items-center gap-8 text-xs font-medium uppercase tracking-widest text-light/70">
                 <a href="/#methode" className="hover:text-primary transition-colors">Methode</a>
-                <a href="#over-mij" className="hover:text-primary transition-colors">Over mij</a>
+                <a href="#over-mij" className="hover:text-primary transition-colors">Over ons</a>
             </div>
 
             <div className="flex items-center gap-4">
