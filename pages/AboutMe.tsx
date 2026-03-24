@@ -47,7 +47,7 @@ const AboutMe: React.FC = () => {
       <Footer onOpenModal={() => setIsModalOpen(true)} />
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <AdviesgesprekForm />
+        <AdviesgesprekForm onClose={() => setIsModalOpen(false)} />
       </Modal>
     </div>
   );

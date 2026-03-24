@@ -163,21 +163,24 @@ const AboutMe: React.FC<AboutMeProps> = ({ onOpenModal }) => {
           {[
             { 
               icon: Shield,
-              image: "https://images.unsplash.com/photo-1614850715649-1d0106293bd1?q=80&w=2070&auto=format&fit=crop", 
               title: "Radicale Transparantie", 
-              desc: "Geen verborgen kosten of vage beloftes. Je weet precies wat je krijgt en wat het oplevert." 
+              desc: "Geen verborgen kosten of vage beloftes. Je weet precies wat je krijgt en wat het oplevert.",
+              gradient: "from-primary/10 to-transparent",
+              borderColor: "group-hover:border-primary/50"
             },
             { 
               icon: Sparkles,
-              image: "https://images.unsplash.com/photo-1634152962476-4b8a00e1915c?q=80&w=2121&auto=format&fit=crop", 
               title: "Innovatie Voorop", 
-              desc: "Ik gebruik de nieuwste AI-tools zodat jij je concurrentie altijd een stap voor blijft." 
+              desc: "Ik gebruik de nieuwste AI-tools zodat jij je concurrentie altijd een stap voor blijft.",
+              gradient: "from-[#d4b68f]/10 to-transparent",
+              borderColor: "group-hover:border-[#d4b68f]/50"
             },
             { 
               icon: LineChart,
-              image: "https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?q=80&w=2000&auto=format&fit=crop", 
               title: "Meetbare Groei", 
-              desc: "We bouwen geen systemen voor de leuk. Alles is gericht op meer rust, meer leads en meer omzet." 
+              desc: "We bouwen geen systemen voor de leuk. Alles is gericht op meer rust, meer leads en meer omzet.",
+              gradient: "from-white/50 to-transparent",
+              borderColor: "group-hover:border-white/50"
             }
           ].map((value, i) => (
             <motion.div 
@@ -186,30 +189,27 @@ const AboutMe: React.FC<AboutMeProps> = ({ onOpenModal }) => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.2 }}
-              className="relative h-[420px] rounded-[2rem] overflow-hidden group cursor-pointer shadow-lg hover:shadow-2xl transition-shadow"
+              className={`relative p-8 rounded-[2rem] overflow-hidden group cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500 bg-white border-2 border-transparent ${value.borderColor}`}
             >
-              {/* Background Image */}
-              <img 
-                src={value.image} 
-                alt={value.title} 
-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                referrerPolicy="no-referrer"
-              />
-              {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-deep-green via-deep-green/80 to-deep-green/20 opacity-90 group-hover:opacity-80 transition-opacity duration-500"></div>
+              {/* Abstract Animated Background */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${value.gradient} opacity-0 transition-opacity duration-500 group-hover:opacity-100`}></div>
+              
+              {/* Animated Glow behind icon */}
+              <div className="absolute top-8 left-8 w-20 h-20 bg-primary/20 rounded-full blur-[30px] opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
 
               {/* Content */}
-              <div className="absolute inset-0 p-8 flex flex-col justify-end">
-                <div className="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center mb-6 text-primary group-hover:scale-110 group-hover:bg-primary group-hover:text-deep-green transition-all duration-500 shadow-xl">
+              <div className="relative z-10">
+                <div className="w-14 h-14 rounded-2xl bg-surface border border-deep-green/5 flex items-center justify-center mb-6 text-primary group-hover:scale-110 group-hover:bg-primary group-hover:text-white transition-all duration-500 shadow-sm">
                   <value.icon size={28} strokeWidth={1.5} />
                 </div>
-                <h4 className="text-2xl font-serif text-white mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-out">{value.title}</h4>
-                <div className="overflow-hidden">
-                  <p className="text-white/80 text-sm leading-relaxed transform translate-y-full opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-out">
-                    {value.desc}
-                  </p>
-                </div>
+                <h4 className="text-2xl font-serif text-deep-green mb-3 group-hover:text-primary transition-colors duration-300">{value.title}</h4>
+                <p className="text-deep-green/70 text-sm leading-relaxed">
+                  {value.desc}
+                </p>
               </div>
+              
+              {/* Decorative corner element */}
+              <div className="absolute -bottom-2 -right-2 w-16 h-16 bg-primary/5 rounded-tl-[2rem] rounded-br-[2rem] transform scale-0 group-hover:scale-100 transition-transform duration-500 origin-bottom-right"></div>
             </motion.div>
           ))}
         </div>

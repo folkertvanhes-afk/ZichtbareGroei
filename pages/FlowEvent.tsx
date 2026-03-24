@@ -395,7 +395,7 @@ const FlowEvent: React.FC = () => {
       <Footer onOpenModal={() => setIsModalOpen(true)} />
 
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <ClaimSetupForm />
+        <ClaimSetupForm onClose={() => setIsModalOpen(false)} />
       </Modal>
     </div>
   );

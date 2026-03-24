@@ -77,7 +77,7 @@ const Hero: React.FC<HeroProps> = ({ onOpenModal }) => {
           className="inline-flex items-center gap-3 px-6 py-2 rounded-full glass-panel mb-10 border-deep-green/5"
         >
           <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
-          <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-deep-green/70">De Blauwdruk voor 2026</span>
+          <span className="text-[11px] font-bold uppercase tracking-[0.2em] text-deep-green/70">Voor Ambitieuze Coaches & Therapeuten</span>
         </motion.div>
         
         <motion.h1 

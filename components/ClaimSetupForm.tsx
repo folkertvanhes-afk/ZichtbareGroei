@@ -2,8 +2,14 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { User, Mail, Phone, ArrowRight, Loader2, CheckCircle2, Sparkles } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { useNavigate } from 'react-router-dom';
 
-const ClaimSetupForm: React.FC = () => {
+interface ClaimSetupFormProps {
+  onClose?: () => void;
+}
+
+const ClaimSetupForm: React.FC<ClaimSetupFormProps> = ({ onClose }) => {
+  const navigate = useNavigate();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
 
@@ -23,13 +29,19 @@ const ClaimSetupForm: React.FC = () => {
       const webhookUrl = import.meta.env.VITE_GHL_WEBHOOK_URL;
       
       if (webhookUrl) {
+        const urlParams = new URLSearchParams();
+        Object.entries(data).forEach(([key, value]) => {
+          urlParams.append(key, value as string);
+        });
+
         // Fire and forget: we don't await the fetch so the user doesn't have to wait
         fetch(webhookUrl, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/x-www-form-urlencoded',
           },
-          body: JSON.stringify(data),
+          body: urlParams,
+          mode: 'no-cors'
         }).catch(err => console.error('Webhook error:', err));
       } else {
         console.warn('Geen GHL Webhook URL geconfigureerd. Formulier data is niet verstuurd.');
@@ -151,7 +163,7 @@ const ClaimSetupForm: React.FC = () => {
                 <h4 className="text-3xl font-serif text-white mb-2">Setup succesvol geclaimd</h4>
                 <p className="text-primary font-bold mb-6 text-lg">Bedankt voor je aanvraag.</p>
                 
-                <div className="text-left bg-white/10 backdrop-blur-md p-6 rounded-xl border border-white/20 mb-2 w-full shadow-inner">
+                <div className="text-left bg-white/10 backdrop-blur-md p-6 rounded-xl border border-white/20 mb-6 w-full shadow-inner">
                   <h5 className="text-white font-bold mb-4 text-sm uppercase tracking-wider flex items-center gap-2">
                     <Sparkles className="text-primary" size={16} /> Wat je nu kunt verwachten:
                   </h5>
@@ -170,6 +182,19 @@ const ClaimSetupForm: React.FC = () => {
                     </motion.li>
                   </ul>
                 </div>
+
+                <motion.button
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 1.0 }}
+                  onClick={() => {
+                    if (onClose) onClose();
+                    navigate('/');
+                  }}
+                  className="w-full py-4 bg-primary text-deep-green font-bold rounded-xl hover:bg-[#d4b68f] transition-colors flex items-center justify-center shadow-lg shadow-primary/20"
+                >
+                  Begrepen
+                </motion.button>
               </motion.div>
             </motion.div>
           )}

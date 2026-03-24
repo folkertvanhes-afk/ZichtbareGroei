@@ -6,7 +6,7 @@ const steps = [
   {
     id: 1,
     title: "Kick-off & Strategie",
-    subtitle: "Jouw Blauwdruk",
+    subtitle: "Jouw Groei Systeem",
     icon: Layers,
     image: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop",
     description: "We brengen je huidige processen in kaart en ontwerpen de perfecte flow voor jouw praktijk. Jij vertelt ons je visie, wij maken het plan.",
